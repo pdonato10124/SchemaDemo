@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mx="https://mmixm.aero/features/4" xmlns:mb="https://mmixm.aero/base/4" targetNamespace="https://mmixm.aero/features/4" elementFormDefault="qualified" version="4.0.0">
+	<xs:annotation>
+		<xs:documentation>The ratings credentials and certifications of technicians are represented in the Qualifications sub-model.</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="https://mmixm.aero/base/4" schemaLocation="./../base/base.xsd"/>
+	<xs:include schemaLocation="asset.xsd"/>
+	<xs:element name="Qualification" type="mx:Qualification"/>
+	<xs:complexType name="Certification">
+		<xs:annotation>
+			<xs:documentation>Complex type containing information associated with a certification. </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="activeDateTime" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Date/Time the certification was granted.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="grantor" type="mb:Person" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The person who granted the technician the certification.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="inactiveDateTime" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Date and time at which the certification became inactive.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="revokeDateTime" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Date/Time the certification was revoked.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="status" type="mb:CodeCertificationStatusType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Enumerated list representing the status of a certification.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="supervisor" type="mb:Person" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The supervisor of the technician.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="type" type="mb:CodeCertificationType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Enumerated list representing the type of certification.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Credential">
+		<xs:annotation>
+			<xs:documentation>Complex type containing data about a credential, including rating type, rating status, holder status, organization info, etc.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="additionalInformation" type="mb:AdditionalInformation" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Additional information about a credential.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="facilityCode" type="mb:AtowOrganization" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The ATOW organization and location, associated with the Credential.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="holderStatus" type="mx:HolderStatus" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The status of a credential holder.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rating" type="mb:CodeRatingType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The rating type of the credential.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ratingStatus" type="mb:CodeRatingStatusType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Status of the credential (Current, Historical, Pending).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="HolderStatus">
+		<xs:annotation>
+			<xs:documentation>The status of a credential holder.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="mb:CodeHolderStatusType">
+				<xs:attribute name="qualifier" use="optional" type="mb:CodeHolderStatusQualifierType">
+					<xs:annotation>
+						<xs:documentation>The qualifier type for a credential holder with an active status.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="Qualification">
+		<xs:annotation>
+			<xs:documentation>Complex type containing credentials and certifications along with expiration dates and additional information.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="additionalInformation" type="mb:AdditionalInformation" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Additional information about the qualification.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="expirationDateTime" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Date the qualification (credential or certification) is no longer active.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fsepIdentifier" type="mx:FsepIdentifier" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>FSEP asset identification information.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modifiedDateTime" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Date/Time the record was last modified.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="qualificationChoice" type="mx:QualificationChoice" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Credential or certification representing the qualification.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="qualifiedPerson" type="mb:Person" minOccurs="0" maxOccurs="99">
+				<xs:annotation>
+					<xs:documentation>Person associated with a qualification (certification or credential).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="QualificationChoice">
+		<xs:annotation>
+			<xs:documentation>Choice structure representing Credential or Certification.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="certification" type="mx:Certification" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Information associated with a certification.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="credential" type="mx:Credential" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Data about a credential, including rating type, rating status, holder status, organization info, etc.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>

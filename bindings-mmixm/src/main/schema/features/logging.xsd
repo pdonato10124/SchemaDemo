@@ -1,0 +1,606 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mx="https://mmixm.aero/features/4" xmlns:mb="https://mmixm.aero/base/4" targetNamespace="https://mmixm.aero/features/4" elementFormDefault="qualified" version="4.0.0">
+	<xs:annotation>
+		<xs:documentation>Information pertaining to the logging of assets and associated maintenance activities.</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="https://mmixm.aero/base/4" schemaLocation="./../base/base.xsd"/>
+	<xs:include schemaLocation="asset.xsd"/>
+	<xs:include schemaLocation="monitoring.xsd"/>
+	<xs:complexType name="Alarm">
+		<xs:annotation>
+			<xs:documentation>Complex type containing alarm information associated with a logging event.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="information" type="mx:MonitoringEvent" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Information resulting from an alarm event, such as an event triggered by a user command. This event includes an alarm datetime, details about the monitored datapoint and observed value.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="inputParameter" type="mb:String10Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Input parameters applied to a remote command associated with an alarm event.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="remoteAction" type="mb:String50Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The remote action / command that was issued to the asset.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="remoteResponse" type="mb:CodeDescriptionType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The asset's return response to the command received (e.g. Success / Failure).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ArrivalDeparture">
+		<xs:annotation>
+			<xs:documentation>Complex type that describe technicians' arrival and departure times, and travel duration.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="actualTravelDuration" type="xs:duration" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Total time taken to travel from origin to destination, in ISO 8601 duration format.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="arrivalDateTime" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The date and time of maintenance technician's arrival to the asset's location during a maintenance activity. (e.g. YYYY-MM-DDTHH:MM:SS)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="departureDateTime" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The date and time of maintenance technician's departure from the asset's location during a maintenance activity. (e.g. YYYY-MM-DDTHH:MM:SS)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AssetCertification">
+		<xs:annotation>
+			<xs:documentation>Complex type containing certification information of an asset.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="interval" type="mb:CodeDescriptionType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The frequency at which certification must be performed on an asset, per TI 6030.6 Simplified Automated Logging (SAL) User's Manual.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="statement" type="mb:CodeDescriptionType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Predefined certification statements to be used when entering Certification logs, per TI 6030.6 Simplified Automated Logging (SAL) User's Manual.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AssetOrder">
+		<xs:annotation>
+			<xs:documentation>Complex type containing asset ordering information.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="assetReceiptDateTime" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The time and date of when an asset/part order was received. (e.g. YYYY-MM-DDTHH:MM:SS)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dateTime" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The time and date of when an asset/part order was placed. (e.g. YYYY-MM-DDTHH:MM:SS)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="required" type="mb:CodeDescriptionType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Indicates whether parts are required to accomplish this logged maintenance event, per TI 6030.6 Simplified Automated Logging (SAL) User's Manual.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="trackingNumber" type="mb:String15Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The tracking number for the an asset/part order that was made. (e.g. TRK5161645198)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AssignmentInformation">
+		<xs:annotation>
+			<xs:documentation>Complex type containing info about assigned group and specialist.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="assignedGroup" type="mb:String50Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The organization assigned to the maintenance activity.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="assignedSpecialist" type="mb:ContactInformation" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The specialist assigned to the maintenance activity.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BackupStatus">
+		<xs:annotation>
+			<xs:documentation>Complex type that contains information regarding backup systems which may have been employed during the logged interruption.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="backupCategory" type="mb:String50Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Description of the backup system, per RMLS NLN DP Design Document v1.2.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="backupEndDateTime" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Date/time when backup system use ended, per RMLS NLN DP Design Document v1.2.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="backupInUseAsPrimary" type="xs:boolean" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Indicator that backup is being used as primary. "True" indicates backup is currently in use as the primary system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="backupStartDateTime" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Date/time when backup system use began, per RMLS NLN DP Design Document v1.2.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Cause">
+		<xs:annotation>
+			<xs:documentation>Contains information pertaining to the cause of an interruption.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="group" type="mb:CodeDescriptionType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Contains a descriptions field that indicates the cause and need for interruption report. (e.g. LINE (REQ. FOR CC 61/81))</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rawText" type="mb:String50Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>A free form field that provides the user with the ability to further define the cause and its details, and could contain abbreviations (e.g. CN).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subgroup" type="mb:CodeDescriptionType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Contains  further defined descriptions of the cause of interruption report. (e.g. CIRCUIT NOISY)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EquipmentModification">
+		<xs:annotation>
+			<xs:documentation>Complex type containing information about an equipment modification event.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="assetOrder" type="mx:AssetOrder" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Asset ordering information associated with the maintenance event.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="changeNumber" type="mb:String10Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The change number (Configuration Control Decision) associated with the changes that will be applied.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="directiveLevel" type="mb:CodeDescriptionType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The level of the organizational element which mandated the maintenance activity, per TI 6030.6 Simplified Automated Logging (SAL) User's Manual.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modification" type="mb:Documentation" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Complex type containing details of an asset modification.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modificationType" type="mb:CodeDescriptionType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The type of modification, per TI 6030.6 Simplified Automated Logging (SAL) User's Manual.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="projectCode" type="mb:String10Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Special project codes associated with the project  as directed in modification document, per TI 6030.6 Simplified Automated Logging (SAL) User's Manual.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="InterruptReport">
+		<xs:annotation>
+			<xs:documentation>Complex type containing information about a break in continuity, the loss or unavailability of an asset, regardless of duration or cause.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="acknowledgedBy" type="mb:ContactInformation" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The Strategic Event Coordination (SEC) specialist that acknowledged the interruption.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="acknowledgedDateTime" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The time and date of when the Strategic Event Coordination (SEC) specialist acknowledged the interruption report. (e.g. YYYY-MM-DDTHH:MM:SS)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="acknowledgedFlag" type="xs:boolean" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>When "True", this field indicates the logged interruption was acknowledged by the Strategic Event Coordination (SEC) specialist.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="airTrafficImpact" type="mb:AirTrafficImpactType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The impact level to air traffic as a result of the interruption report. (e.g. high, moderate, low, and none)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="backupStatus" type="mx:BackupStatus" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Information regarding backup systems which may have been employed during the logged interruption.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cause" type="mx:Cause" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Information pertaining to the cause of an interruption.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="continuityOfService" type="mb:ContinuityOfServiceType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>When "True" or "Reserved", interruption impacts ILS Continuity of Service (COS), which have requirements and procedures defined in JO 6750.57, Instrument Landing System Continuity of Service Requirements and Procedures (ILS COS), per JO 6000.15.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="deviceProvenance" type="mb:Provenance" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Describes when the logged event took place, in cases where the logging device was offline and synced later.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="estimatedRepairDuration" type="xs:duration" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Total time estimated to perform the necessary repairs until the system is restored for operational use (ISO 8601 duration format).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="eventType" type="mb:CodeDescriptionType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The type of interrupt event, as described in TI 6140.32B RMLS NOCC EM User's Guide. (e.g., "ILS FAC/Service Outage", "Loss of Redundancy", "ASDE Outage")</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="failureInformation" type="mb:CodeDescriptionType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The Service Fault Location (SFL), as defined in JO 6040.15 NAPRS. It is the location of the inoperable segment of a chain of assets, such as facilities and/or equipment, causing a service interruption.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="followUpDateTime" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The time and date of when an individual should follow up regarding the interruption report / event type. This time is used as a notification when a follow-up is needed on an event, as described in TI 6140.32  RMLS National Operations Control Center (NOCC) Event Manager (EM) User's Guide. (e.g. YYYY-MM-DDTHH:MM:SS)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="impactLevel" type="mb:CodeDescriptionType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>A code of the impact of level of the interruption report to AT (e.g. R8).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="independentEditFlag" type="xs:boolean" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>When "True", this log entry is a child log which was edited independently of its parent.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="interruptType" type="mb:CodeInterruptConditionDescriptionType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The interrupt condition, as defined in JO 6040.15, National Airspace Performance Reporting Services (NAPRS).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="operationalContingency" type="mb:OperationalContingencyType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>State of Operational Contingency Reporting, includes ATC-Alert notifications and ATC-Limited and ATC-Zero Operational Contingency Level (OCL) declarations as outlined in Order JO 1900.47 - Air Traffic Control Operational Readiness and Contingency Planning, for all outages/projects/events, planned or unplanned, that could cause a significant system impact, reduction in services, or reduction in capacity.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pagedBackFlag" type="xs:boolean" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>When "True", indicates the technician was paged back.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pagedOutFlag" type="xs:boolean" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>When "True", indicates the technician was paged out.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pagedUpdateFlag" type="xs:boolean" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>When "True", indicates the technician was updated via page.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="primeRecovery" type="mb:CodeDescriptionType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The method used to recover a system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="remoteSaveFlag" type="xs:boolean" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>When "True", indicates that remote monitoring has prevented the need for a physical trip to the site.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="reviewedFlag" type="xs:boolean" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>When "True", indicates the National Operations Control Center (NOCC) has reviewed the log.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unscheduledFlag" type="xs:boolean" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>When "True", indicates  a maintenance event was unscheduled.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LogCoordination">
+		<xs:annotation>
+			<xs:documentation>Complex type containing log coordination information, such as whether coordination is required, the status of coordination, and whether the coordination was performed.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="coordinationFlag" type="xs:boolean" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>When "True", this field indicates that coordination is required for the maintenance activity.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="coordinationStage" type="mb:CodeCoordinationRestStageDescriptionType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The current coordination stage of the asset, for either scheduled or unscheduled events, per RMLS NLN DB Design Document.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="electronicFlag" type="xs:boolean" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>When "True", this field indicates that electronic coordination occurred for the maintenance activity.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LoggingCode">
+		<xs:annotation>
+			<xs:documentation>Complex type containing code information for a logging event, including the code category, the maintenance action code, and the supplemental code.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="category" type="mb:CodeDescriptionType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The code and description of the Code Category, which describes the reason for the log entry, per TI 6030.6 SAL User's Manual.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="maintenanceAction" type="mb:CodeDescriptionType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The code and description of the Maintenance Action Code, which describes the maintenance action performed, per TI 6030.6 SAL User's Manual.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="supplemental" type="mb:CodeDescriptionType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The code and description of the Supplemental Code, which describes the supplemental reason for the log entry, per TI 6030.6 SAL User's Manual.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LoggingEvent">
+		<xs:annotation>
+			<xs:documentation>Complex type containing logging event information.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="additionalInformation" type="mb:AdditionalInformation" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Additional information about a Logging event.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="alarm" type="mx:Alarm" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Alarm information associated with a logging event.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="arrivalDeparture" type="mx:ArrivalDeparture" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Technicians' travel information, such as arrival and departure times, and travel duration.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="assignmentInformation" type="mx:AssignmentInformation" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Information about assigned group and specialist.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="comment" type="mb:String4000Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Free text comment on the logging event, and can include detailed information, per JO 6040.15 National Airspace Performance Reporting Services (NAPRS).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="createdBy" type="mb:ContactInformation" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The contact information of the person who created the log entry.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="createdDateTime" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The time and date of when the log data was created.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="creatorLocation" type="mb:Location" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The organization/location of  where the log data was created.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="equipmentModification" type="mx:EquipmentModification" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Information about an equipment modification event.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fsepOperationalInformationSnapshot" type="mx:FsepOperationalInformation" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>A static capture of the FSEP operational information associated with an asset, current at the time the event was logged.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="interruptReport" type="mx:InterruptReport" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Information about a break in continuity, the loss or unavailability of an asset, regardless of duration or cause.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="logCoordination" type="mx:LogCoordination" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Log coordination information, such as whether coordination is required, the status of coordination, and whether the coordination was performed.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="loggingCode" type="mx:LoggingCode" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Code information for a logging event, including the code category, the maintenance action code, and the supplemental code.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="logId" type="mb:Integer22Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This field contains the ID number of the log entry.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="maintenanceActivity" type="mx:MaintenanceActivity" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Maintenance activity information, including start and end time of the maintenance activity.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modifiedBy" type="mb:ContactInformation" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The contact information of the person that modified the log data.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modifiedDateTime" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The time and date of when the log entry was modified / updated.  (e.g. YYYY-MM-DDTHH:MM:SS)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="notamInformation" type="mx:NotamInformation" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Information about associated NOTAMs.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="periodicMaintenance" type="mx:PeriodicMaintenance" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Information about a periodic maintenance logging event.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="reportLevel" type="mb:String1Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The report level of the log entry as defined in TI 6140.31 RMLS Peabody User's Guide. "N" indicates reportable per Order 6040.15 (NAPRS), "L" indicates reportable by local policy.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="status" type="mb:CodeLogStatusDescriptionType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The status of the log entry, per TI 6140.33 OCC/SOC Event Manager User's Guide. (e.g. Closed/ open / void)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="summary" type="mb:String255Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>A free-text summary of the logged event or activity conducted.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MaintenanceActivity">
+		<xs:annotation>
+			<xs:documentation>Complex type containing the start and end time of the maintenance activity.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="activityEndDateTime" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The end time and date of when the maintenance activity ended.(e.g. YYYY-MM-DDTHH:MM:SS)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="activityStartDateTime" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The start time and date of when the maintenance activity began. (e.g. YYYY-MM-DDTHH:MM:SS)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NotamInformation">
+		<xs:annotation>
+			<xs:documentation>Complex type containing information issued about NOTAMs.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="transactionId" type="xs:integer" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Unique transaction identifier issued by Federal NOTAM System (FNS).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PeriodicMaintenance">
+		<xs:annotation>
+			<xs:documentation>Contains information about a periodic maintenance logging event.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="assetCertification" type="mx:AssetCertification" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Certification information of the associated asset.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="assignmentNumber" type="xs:integer" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The unique ID to identify this set of tasks. It is possible that more than one PM will be assigned to the same asset, and for the same interval. This identifier distinguishes the two for the technician, per TI 6030.6 Simplified Automated Logging (SAL) User's Manual.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="description" type="mb:String4000Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Contains the description of a task.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="earliestDateTime" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The earliest time and date that a Periodic Maintenance or Certification is scheduled to be performed, per TI 6030.6 Simplified Automated Logging (SAL) User's Manual. (e.g. YYYY-MM-DDTHH:MM:SS)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="groupClosureCode" type="mb:String10Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Used to close logging events with the same group code, per TI 6030.6 Simplified Automated Logging (SAL) User's Manual.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="latestDateTime" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The latest time and date that a Periodic Maintenance or Certification is scheduled to be performed, per TI 6030.6 Simplified Automated Logging (SAL) User's Manual. (e.g. YYYY-MM-DDTHH:MM:SS)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="publication" type="mb:Documentation" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Contains documentation and related information about the FAA order related to the described logging event or asset.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="scheduleDateTime" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The scheduled time and date that a Periodic Maintenance or Certification is to be performed, per TI 6030.6 Simplified Automated Logging (SAL) User's Manual. (e.g. YYYY-MM-DDTHH:MM:SS)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="schedulingCode" type="mb:String1Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Watch number used for scheduling purposes, per TI 6030.6 Simplified Automated Logging (SAL) User's Manual.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="task" type="mx:Task" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Information about the periodic maintenance task(s)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unitTag" type="mb:String10Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The unit where work is assigned.  This may also be a technician's initials if assigned to a specific individual, per TI 6030.6 Simplified Automated Logging (SAL) User's Manual.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Task">
+		<xs:annotation>
+			<xs:documentation>Complex type containing information about the periodic maintenance task(s).</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="glossary" type="mb:CodeDescriptionType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The unique identifier pointing to a task glossary record, per TI 6030.6 Simplified Automated Logging (SAL) User's Manual.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="interval" type="mb:CodeDescriptionType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The frequency at which periodic maintenance task(s) must be performed on an asset, per TI 6030.6 Simplified Automated Logging (SAL) User's Manual.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="numberOfTasksActual" type="xs:nonNegativeInteger" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The actual number of tasks associated with the periodic maintenance log.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="numberOfTasksEstimated" type="xs:nonNegativeInteger" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The estimated number of tasks associated with the periodic maintenance log.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

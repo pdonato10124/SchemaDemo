@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mx="https://mmixm.aero/features/4" xmlns:mb="https://mmixm.aero/base/4" targetNamespace="https://mmixm.aero/features/4" elementFormDefault="qualified" version="4.0.0">
+	<xs:annotation>
+		<xs:documentation>The operational health, status, and changes in status of an asset are represented in the Monitoring sub-model.</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="https://mmixm.aero/base/4" schemaLocation="./../base/base.xsd"/>
+	<xs:simpleType name="RmlsConditionCodeType">
+		<xs:annotation>
+			<xs:documentation>Status and condition information pertaining to an individual RMLS Data Point. (Reference: NAS-IC-51015108-01_RMLS_CMHP)</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="I">
+				<xs:annotation>
+					<xs:documentation>Normal, inactive state and should be removed (i.e. become invisible) from status displays on RMLS-NRN, see also TI 6140.31, RMLS Peabody User's Guide, and NAS-IC-51015108-01, Interface Control Document: Communications Remote Maintenance Monitoring (CRMM) Remote Monitoring Subsystem (RMS) Concentrator and Subdevices To Remote Monitoring Logging System (RMLS) National RMM Network (NRN) Interface.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="N">
+				<xs:annotation>
+					<xs:documentation>Active, unacknowledged, alarm state (red status), see also TI 6140.31, RMLS Peabody User's Guide, and NAS-IC-51015108-01, Interface Control Document: Communications Remote Maintenance Monitoring (CRMM) Remote Monitoring Subsystem (RMS) Concentrator and Subdevices To Remote Monitoring Logging System (RMLS) National RMM Network (NRN) Interface.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="P">
+				<xs:annotation>
+					<xs:documentation>Active, unacknowledged, alert/warning state (yellow status), see also TI 6140.31, RMLS Peabody User's Guide, and NAS-IC-51015108-01, Interface Control Document: Communications Remote Maintenance Monitoring (CRMM) Remote Monitoring Subsystem (RMS) Concentrator and Subdevices To Remote Monitoring Logging System (RMLS) National RMM Network (NRN) Interface.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="S">
+				<xs:annotation>
+					<xs:documentation>Site Data Report (green status), see also TI 6140.31, RMLS Peabody User's Guide, and NAS-IC-51015108-01, Interface Control Document: Communications Remote Maintenance Monitoring (CRMM) Remote Monitoring Subsystem (RMS) Concentrator and Subdevices To Remote Monitoring Logging System (RMLS) National RMM Network (NRN) Interface.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="L">
+				<xs:annotation>
+					<xs:documentation>Warning or alert state (yellow status), see also TI 6140.31, RMLS Peabody User's Guide, and NAS-IC-51015108-01, Interface Control Document: Communications Remote Maintenance Monitoring (CRMM) Remote Monitoring Subsystem (RMS) Concentrator and Subdevices To Remote Monitoring Logging System (RMLS) National RMM Network (NRN) Interface.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="A">
+				<xs:annotation>
+					<xs:documentation>Alarm condition (red status), see also TI 6140.31, RMLS Peabody User's Guide, and NAS-IC-51015108-01, Interface Control Document: Communications Remote Maintenance Monitoring (CRMM) Remote Monitoring Subsystem (RMS) Concentrator and Subdevices To Remote Monitoring Logging System (RMLS) National RMM Network (NRN) Interface.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="C">
+				<xs:annotation>
+					<xs:documentation>State change, see also TI 6140.31, RMLS Peabody User's Guide, and NAS-IC-51015108-01, Interface Control Document: Communications Remote Maintenance Monitoring (CRMM) Remote Monitoring Subsystem (RMS) Concentrator and Subdevices To Remote Monitoring Logging System (RMLS) National RMM Network (NRN) Interface.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="R">
+				<xs:annotation>
+					<xs:documentation>Return to Normal (green status), see also TI 6140.31, RMLS Peabody User's Guide, and NAS-IC-51015108-01, Interface Control Document: Communications Remote Maintenance Monitoring (CRMM) Remote Monitoring Subsystem (RMS) Concentrator and Subdevices To Remote Monitoring Logging System (RMLS) National RMM Network (NRN) Interface.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="RmlsCriticalityCodeType">
+		<xs:annotation>
+			<xs:documentation>The criticality RMLS-NRN assigns to each RMLS Data Point reflecting the urgency of that component failing.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="1">
+				<xs:annotation>
+					<xs:documentation>Indicates the system is out of service (OTS) or possible service impacting alarm/alert. Definition based on Appendix K, NAS Event Management and Coordination (NEMAC) SOP.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="2">
+				<xs:annotation>
+					<xs:documentation>Imminent failure or service impacting Loss of Redundancy (LOR). Definition based on Appendix K, NAS Event Management and Coordination (NEMAC) SOP.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="3">
+				<xs:annotation>
+					<xs:documentation>Imminent failure or service impacting Loss of Redundancy (LOR). Definition based on Appendix K, NAS Event Management and Coordination (NEMAC) SOP.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="4">
+				<xs:annotation>
+					<xs:documentation>A RMLS Data Point approaching an out of tolerance threshold or an element failure not causing a service impacting LOR or OTS condition. Definition based on Appendix K, NAS Event Management and Coordination (NEMAC) SOP.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="5">
+				<xs:annotation>
+					<xs:documentation>A RMLS Data Point approaching an out of tolerance threshold or an element failure not causing a service impacting LOR or OTS condition. Definition based on Appendix K, NAS Event Management and Coordination (NEMAC) SOP.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="6">
+				<xs:annotation>
+					<xs:documentation>A RMLS Data Point approaching an out of tolerance threshold or an element failure not causing a service impacting LOR or OTS condition. Definition based on Appendix K, NAS Event Management and Coordination (NEMAC) SOP.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="7">
+				<xs:annotation>
+					<xs:documentation>A RMLS Data Point approaching an out of tolerance threshold or an element failure not causing a service impacting LOR or OTS condition. Definition based on Appendix K, NAS Event Management and Coordination (NEMAC) SOP.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="8">
+				<xs:annotation>
+					<xs:documentation>A RMLS Data Point approaching an out of tolerance threshold or an element failure not causing a service impacting LOR or OTS condition. Definition based on Appendix K, NAS Event Management and Coordination (NEMAC) SOP.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="9">
+				<xs:annotation>
+					<xs:documentation>A RMLS Data Point approaching an out of tolerance threshold or an element failure not causing a service impacting LOR or OTS condition. Definition based on Appendix K, NAS Event Management and Coordination (NEMAC) SOP.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="Availability">
+		<xs:annotation>
+			<xs:documentation>Complex type representing the availability of an asset or monitored value.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="additionalInformation" type="mb:AdditionalInformation" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Additional information about the operational status of the asset.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="currentAvailability" type="mb:CodeOperationalAvailabilityType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The current availability of the monitored asset.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="previousAvailability" type="mb:CodeOperationalAvailabilityType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The previous availability of the monitored asset.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Configuration">
+		<xs:annotation>
+			<xs:documentation>Complex type for a configuration, a setting or other qualitative value describing the conditions of an asset.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="additionalInformation" type="mb:AdditionalInformation" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Additional information about a configuration.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="availability" type="mx:Availability" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Indicator representing the availability of a monitored configuration value.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="configurationState" type="mx:ConfigurationState" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Configuration state information associated with a monitoring event.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="monitored" type="mb:MonitoringType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Indicator representing whether the configuration value is monitored.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="mb:String150Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The name of the configuration.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ConfigurationState">
+		<xs:annotation>
+			<xs:documentation>Complex type describing state of a configuration.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="additionalInformation" type="mb:AdditionalInformation" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Additional information about a configuration state associated with an asset.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="currentValue" type="mb:String50Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The current value of the configuration being reported upon.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="previousValue" type="mb:String50Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The previous value of the configuration being reported upon.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MonitoringEvent">
+		<xs:annotation>
+			<xs:documentation>Complex type containing monitoring event information.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="additionalInformation" type="mb:AdditionalInformation" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Additional information about a monitoring event.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="assetAvailability" type="mx:Availability" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Indicator representing the operational availability of a monitored asset.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="configuration" type="mx:Configuration" minOccurs="0" maxOccurs="99">
+				<xs:annotation>
+					<xs:documentation>Configuration information associated with a monitoring event.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="eventDateTime" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The event date and time of the alerted issue.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="eventDescription" type="mb:String255Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Description information about the monitoring event.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="eventTitle" type="mb:String50Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Title of the monitoring event.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="parameter" type="mx:Parameter" minOccurs="0" maxOccurs="99">
+				<xs:annotation>
+					<xs:documentation>Parameter information associated with a monitoring event.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="priority" type="mb:CodeAlertPriorityType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The priority of the alerted issue.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rmlsDpInformation" type="mx:RmlsDpInformation" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Information specific to the RMLS concept of a Data Point.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="securityViolation" type="mx:SecurityViolation" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Security violation information associated with a monitoring event.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="severity" type="mb:CodeAlertSeverityType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The severity of the alerted issue.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Parameter">
+		<xs:annotation>
+			<xs:documentation>Complex type for a parameter, a numerical or other measurable value describing the conditions of an asset.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="additionalInformation" type="mb:AdditionalInformation" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Additional information about a parameter.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="availability" type="mx:Availability" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Indicator representing the availability of a monitored parameter value.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="monitored" type="mb:MonitoringType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Indicator representing whether the parameter value is monitored.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="mb:String150Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The name of the parameter.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="parameterState" type="mx:ParameterState" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Parameter state information associated with a monitoring event.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ParameterState">
+		<xs:annotation>
+			<xs:documentation>Complex type describing state of a parameter.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="additionalInformation" type="mb:AdditionalInformation" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Additional information about a parameter state associated with an asset.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="currentValue" type="mb:Measure" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The current value of the parameter being reported upon.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lowerThreshold" type="mb:Measure" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The minimum value of the threshold.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="previousValue" type="mb:Measure" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The previous value of the parameter being reported upon.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="upperThreshold" type="mb:Measure" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The maximum value of the threshold.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RmlsDpInformation">
+		<xs:annotation>
+			<xs:documentation>Complex type containing information specific to an RMLS Data Point.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="conditionCode" type="mx:RmlsConditionCodeType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Status and condition information pertaining to an individual RMLS Data Point.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="criticality" type="mx:RmlsCriticalityCodeType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The criticality RMLS-NRN assigns to each RMLS Data Point reflecting the urgency of that component failing.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="description" type="mb:String50Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The description of the RMLS Data Point.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dpId" type="mb:RmlsHexId" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The RMLS Data Point identifier, represented as a Hex Id.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rawValue" type="mb:String15Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Unmediated status or measured value of a monitored RMLS Data Point.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="shortName" type="mb:String10Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The short name of the RMLS Data Point, limited to 10 characters.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SecurityViolation">
+		<xs:annotation>
+			<xs:documentation>Complex type describing a security violation event.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="additionalInformation" type="mb:AdditionalInformation" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Additional information about a security violation associated with an asset.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="violation" type="mb:String50Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The name of the security violation.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="violationUserName" type="mb:String255Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The user name involved in the security violation.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project 
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" 
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<artifactId>SchemaDemo</artifactId>
+		<groupId>gov.faa.nnew.sa.schemademo</groupId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	
+	<groupId>gov.faa.nnew.sa.schemademo</groupId>
+	<artifactId>bindings-mmixm</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<name>SchemaDemo :: Bindings MMIXM</name>
+	<url>http://www.faa.gov</url>
+	<packaging>jar</packaging>
+	
+	
+	
+	<properties>
+		<junit.version>4.13.2</junit.version>                                     <!-- -> 4.10 10/05/2011 -> 4.11 04/05/2013 -> 4.13 02/13/2020 -> 4.13.2 08/05/2021 pvd -->
+		<org.junit.jupiter.version>5.10.2</org.junit.jupiter.version>             <!--  5.10.1 01/30/2024 -> 5.10.2 05/24/2024 pvd -->
+		<org.slf4j.version>2.0.13</org.slf4j.version>                             <!-- 1.6.2 -> 1.6.4 02/21/2012 -> 1.7.5 08/09/2013 -> 2.0.13 07/21/2025 pvd -->
+	</properties>
+
+	
+	
+	<dependencies>
+
+		<dependency>
+			<groupId>org.apache.xmlbeans</groupId>
+			<artifactId>xmlbeans</artifactId>
+			<version>${xmlbeans.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		
+		
+		
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		
+		
+		
+		
+		<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>${org.junit.jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>${org.junit.jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.vintage</groupId>
+			<artifactId>junit-vintage-engine</artifactId>
+			<version>${org.junit.jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<!--
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${org.slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-nop</artifactId>
+			<version>${org.slf4j.version}</version>
+		</dependency>
+		-->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		
+
+		
+	</dependencies>
+	
+	<build>
+	
+	
+	
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/log4j2.properties</include>
+				</includes>
+			</resource>
+		</resources>
+
+	
+	
+		<plugins>
+		
+		
+			<plugin>
+				<groupId>org.apache.xmlbeans</groupId>
+				<artifactId>xmlbeans</artifactId>
+				<version>${xmlbeans.plugin.version}</version>
+				<executions><execution><goals><goal>compile</goal></goals></execution></executions>
+				<configuration>
+					<repackage>gov.faa.nnew.sa.schemademo</repackage>
+					<name>bindings</name>
+					<partialMethods>ALL,-GET_LIST,-XGET_LIST,-XGET_ARRAY</partialMethods>
+
+					<!-- 
+					<verbose>true</verbose>
+					<debug>true</debug>
+					<quite>false</quite>
+					<quiet>false</quiet>
+					-->
+					
+					<sourceDir>${project.basedir}/src/main/schema/</sourceDir>
+					<sourceSchemas>*.xsd</sourceSchemas>
+					<catalogLocation>${project.basedir}/src/main/schema/catalog.xml</catalogLocation>
+					<xmlConfigs>${project.basedir}/src/main/schema/xmlconfig.xml</xmlConfigs>
+					<!--
+					-->
+
+
+					<!--
+					mdefNamespaces
+						If this option is set, then the schema compiler will permit and
+						ignore multiple definitions of the same component (element, attribute,
+						type, etc) names in the given namespaces. If multiple definitions
+						with the same name appear, the definitions that happen to be processed
+						last will be ignored. 
+						<mdefNamespace>http://www.opengis.net/gml/3.2</mdefNamespace>
+					<mdefNamespaces>
+						<mdefNamespace>https://mmixm.aero/4</mdefNamespace>
+					</mdefNamespaces>
+					-->
+					
+					
+					<!--
+					<mdefNamespaces>
+						http://www.opengis.net/gml/3.2,
+						http://www.isotc211.org/2005/gmd,
+						http://www.isotc211.org/2005/gco,
+						http://www.isotc211.org/2005/gts,
+						http://www.isotc211.org/2005/gsr,
+						http://www.isotc211.org/2005/gss,
+						http://nws.weather.gov/schemas/IWXXM-US/1.0/Release,
+						http://nws.weather.gov/iwxxm-us/2.0,
+						http://www.weather.gov/iwxxm-us/3.0,
+						http://icao.int/iwxxm/1.1,
+						http://icao.int/iwxxm/2.1,
+						http://icao.int/iwxxm/3.0,
+						http://www.aixm.aero/schema/5.1,
+						http://www.wxxm.aero/wxxm/2.0,
+						http://def.wmo.int/opm/2013,
+						http://def.wmo.int/metce/2013
+					</mdefNamespaces>
+					 -->
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.apache.logging.log4j</groupId>
+						<artifactId>log4j-core</artifactId>
+						<version>${log4j.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+
+		
+		
+		
+			<!-- Generate source code from xsd files 
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>xmlbeans-maven-plugin</artifactId>
+				<version>${xmlbeans-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>xmlbeans</goal>
+							<goal>xmlbeans-test</goal>
+						</goals>
+					</execution>
+				</executions>
+				<inherited>true</inherited>
+				
+				<configuration>
+					<memoryInitialSize>512m</memoryInitialSize>
+
+					<schemaDirectory>./schemas</schemaDirectory>
+					<sourceSchemas>
+
+						<sourceSchema>xlink-1.1/xsd/xlinks.xsd</sourceSchema>
+						<sourceSchema>gml-3.2.1/xsd/gml.xsd</sourceSchema>
+
+
+						
+					</sourceSchemas>
+						
+					
+					<xmlConfigs>
+						
+						<xmlConfig implementation="java.io.File">
+							./xmlbeans/gml/src/main/xsdconfig/gml-3.2.1.xsdconfig
+						</xmlConfig>
+						
+						<xmlConfig implementation="java.io.File">
+							./xmlbeans/om/src/main/xsdconfig/om-2.0.0.xsdconfig
+						</xmlConfig>
+						
+						<xmlConfig implementation="java.io.File">
+							./xmlbeans/aixm/src/main/xsdconfig/aixm-5.1.1.xsdconfig
+						</xmlConfig>
+						
+						
+						<xmlConfig implementation="java.io.File">
+							./xmlbeans/iwxxm/src/main/xsdconfig/iwxxm-3.0.0.xsdconfig
+						</xmlConfig>
+						
+						<xmlConfig implementation="java.io.File">
+							./xmlbeans/iwxxm-us/src/main/xsdconfig/iwxxm-us-3.0.0.xsdconfig
+						</xmlConfig>
+						<xmlConfig implementation="java.io.File">
+							./xmlbeans/sam/src/main/xsdconfig/sam-2.0.0.xsdconfig
+						</xmlConfig>
+						<xmlConfig implementation="java.io.File">
+							./xmlbeans/wxxm/src/main/xsdconfig/wxxm-2.0.0.xsdconfig
+						</xmlConfig>
+						<xmlConfig implementation="java.io.File">
+							./xmlbeans/faawx/src/main/xsdconfig/faawx-2.2.0.xsdconfig
+						</xmlConfig>
+						<xmlConfig implementation="java.io.File">
+							./xmlbeans/wfs/src/main/xsdconfig/wfs-2.0.0.xsdconfig
+						</xmlConfig>
+						<xmlConfig implementation="java.io.File">
+							./xmlbeans/uswx/src/main/xsdconfig/uswx-1.0.0.xsdconfig
+						</xmlConfig>
+
+					</xmlConfigs>
+					
+					<sourceGenerationDirectory>target/generated-sources/xmlbeans</sourceGenerationDirectory>
+					
+					<verbose>false</verbose>
+					<download>true</download>
+					<javaSource>11</javaSource>
+					<mdefNamespaces>
+
+						<mdefNamespace>http://www.opengis.net/gml/3.2</mdefNamespace>
+						<mdefNamespace>http://www.isotc211.org/2005/gmd</mdefNamespace>
+						<mdefNamespace>http://www.isotc211.org/2005/gco</mdefNamespace>
+						<mdefNamespace>http://www.isotc211.org/2005/gts</mdefNamespace>
+						<mdefNamespace>http://www.isotc211.org/2005/gsr</mdefNamespace>
+						<mdefNamespace>http://www.isotc211.org/2005/gss</mdefNamespace>
+						
+						<mdefNamespace>http://nws.weather.gov/schemas/IWXXM-US/1.0/Release</mdefNamespace>
+						<mdefNamespace>http://nws.weather.gov/iwxxm-us/2.0</mdefNamespace>
+						<mdefNamespace>http://www.weather.gov/iwxxm-us/3.0</mdefNamespace>
+						
+						<mdefNamespace>http://icao.int/iwxxm/1.1</mdefNamespace>
+						<mdefNamespace>http://icao.int/iwxxm/2.1</mdefNamespace>
+						<mdefNamespace>http://icao.int/iwxxm/3.0</mdefNamespace>
+						
+						<mdefNamespace>http://www.aixm.aero/schema/5.1</mdefNamespace>
+						<mdefNamespace>http://www.wxxm.aero/wxxm/2.0</mdefNamespace>
+						<mdefNamespace>http://def.wmo.int/opm/2013</mdefNamespace>
+						<mdefNamespace>http://def.wmo.int/metce/2013</mdefNamespace>
+					</mdefNamespaces>
+					
+					<catalogLocation>./schemas/catalog.xml</catalogLocation>
+					
+				</configuration>
+			</plugin>
+			-->
+			
+			
+			
+			
+			<!-- Add generated classes as sources  -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>${build-helper-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals><goal>add-source</goal></goals>
+						<configuration>
+							<sources>
+								<source>target/generated-sources/xmlbeans</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<!-- Attach the sources plugin to the install phase of the build. -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>${maven-source-plugin.version}</version>
+				<inherited>true</inherited>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			
+			
+			
+			
+			
+			
+			
+		</plugins>
+	</build>
+	
+</project>

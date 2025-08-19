@@ -1,0 +1,1447 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mb="https://mmixm.aero/base/4" targetNamespace="https://mmixm.aero/base/4" elementFormDefault="qualified" version="4.0.0">
+	<xs:annotation>
+		<xs:documentation>This package contains custom data types used throughout the model.</xs:documentation>
+	</xs:annotation>
+	<xs:simpleType name="AirTrafficImpactType">
+		<xs:annotation>
+			<xs:documentation>Enumerated list of impact levels to air traffic as a result of the interruption report. (e.g. high, moderate, low, and none)</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="High">
+				<xs:annotation>
+					<xs:documentation>High or significant impact to air traffic services, as defined in the appropriate facility SOP. For example, "high" may indicate a greater than 45 minute air traffic delay, or a ground stop is implemented beyond an internal implementation, or the event has national media interest.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Moderate">
+				<xs:annotation>
+					<xs:documentation>Moderate impact to air traffic services, as defined in the appropriate facility SOP. For example, "moderate" may indicate a 15 to 45 minute air traffic delay, or a Traffic Management Initiative (TMI) is implemented, or the event has local media interest.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Low">
+				<xs:annotation>
+					<xs:documentation>Low or negligible impact to air traffic services, as defined in the appropriate facility SOP. For example, "low" may indicate less than 15 minutes of air traffic delay, or a Traffic Management Initiative (TMI) is unnecessary or possible.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="None">
+				<xs:annotation>
+					<xs:documentation>No impact to air traffic services, as defined in the appropriate facility SOP.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AssetType">
+		<xs:annotation>
+			<xs:documentation>Enumerated list of asset categories.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Assembly">
+				<xs:annotation>
+					<xs:documentation>A combination of parts or subassemblies designed to work in concert.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Component">
+				<xs:annotation>
+					<xs:documentation>Any self-contained part or any combination of parts, subassemblies, or units that perform a distinctive function necessary to operate a system, per the FAA Advisory Circular for Recordkeeping Requirements.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Equipment">
+				<xs:annotation>
+					<xs:documentation>Equipment refers to a complete collection of manufactured assemblies or components that make up a complex system/facility (e.g., transmitter, receiver, etc.). This information is located in section 8 of the system or equipment Technical Instruction Book. Equipment describes the highest level of serialized equipment information associated with the Facility Type, Location Ident, and make/model combinations from an FSEP record, per 6000.5 Facility, Service, and Equipment Profile (FSEP).</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Facility">
+				<xs:annotation>
+					<xs:documentation>Generally, any installation of equipment designated to aid in the navigation, communication, or control of air traffic. Specifically, the term denotes the total electronic equipment, power generation, or distribution systems and any structure used to house, support, and /or protect the use equipment and systems. A facility may include a number of systems, subsystems, or equipment, per FAA-HDBK-006A Reliability, Maintainability, and Availability (RMA) Handbook.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="lru">
+				<xs:annotation>
+					<xs:documentation>Line replaceable unit (lru) - a modular component designed to be quickly replaced at an operating location.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LRU">
+				<xs:annotation>
+					<xs:documentation>Lowest replaceable unit (LRU) - For restoration purposes, an LRU is an assembly, printed circuit board, or chassis-mounted component that can easily be removed and replaced, per FAA-HDBK-006A Reliability, Maintainability, and Availability (RMA) Handbook.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Module">
+				<xs:annotation>
+					<xs:documentation>The serialized Lowest Replaceable Unit (LRU) level equipment, per 6000.5 Facility, Service, and Equipment Profile (FSEP).</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Other">
+				<xs:annotation>
+					<xs:documentation>Other asset type not covered by other defined options.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Part">
+				<xs:annotation>
+					<xs:documentation>One piece, or two or more pieces that are joined together and which are not normally subject to disassembly without destruction of the designed use, per the FAA Advisory Circular for Recordkeeping Requirements.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Service">
+				<xs:annotation>
+					<xs:documentation>Per FAA-HDBK-006A Reliability, Maintainability, and Availability (RMA) Handbook, the term "service" has different meanings in the contexts of the NAS Architecture (Version 5.0 or greater) and the National Airspace Performance Reporting Services (NAPRS).
+- "NAS Architecture Service" represents services, such as separation assurance, that are provided to NAS users. These services are provided by a combination of ATC specialists and the systems that support them. Each NAS Architecture Service comprises two or more NAS capabilities associated with the service.
+- "NAPRS Services" as defined in FAA order 6040.15 are services that represent an end product, which is delivered to a user (AT personnel, the aviation public, or military) that results from an appropriate combination of systems, subsystems, equipment, and facilities.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Subassembly">
+				<xs:annotation>
+					<xs:documentation>A part or component of a larger assembly, per the FAA Advisory Circular for Recordkeeping Requirements.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Subsystem">
+				<xs:annotation>
+					<xs:documentation>Per 6000.5 Facility, Service, and Equipment Profile (FSEP), a subsystem is that portion of a system that performs a specific function(s). A subsystem must relate to a higher-level system in the NAS Operational Inventory (NOI). This is known as the FIC Code and class.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="System">
+				<xs:annotation>
+					<xs:documentation>Per 6000.5 Facility, Service, and Equipment Profile (FSEP), a system is a combination of a subsystem(s) or equipment whose individual functions produce, by engineering design, a specific operating product(s) in the NAS. This is known as the facility type.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ATOWCodeType">
+		<xs:annotation>
+			<xs:documentation>Three to five alpha-numeric character code representing the ATOW Group.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[A-Z0-9]{3}[A-Z0-9]{0,2}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BinaryType">
+		<xs:annotation>
+			<xs:documentation>Value of 0 or 1.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:maxInclusive value="1"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CodeAlertPriorityType">
+		<xs:annotation>
+			<xs:documentation>Enumerated list of priority levels.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Highest">
+				<xs:annotation>
+					<xs:documentation>The highest priority.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="High">
+				<xs:annotation>
+					<xs:documentation>The 2nd highest priority.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Moderate">
+				<xs:annotation>
+					<xs:documentation>The 3rd highest priority.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Low">
+				<xs:annotation>
+					<xs:documentation>The 4th highest priority.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Lowest">
+				<xs:annotation>
+					<xs:documentation>The lowest priority.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Unknown">
+				<xs:annotation>
+					<xs:documentation>An unknown priority.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CodeAlertSeverityType">
+		<xs:annotation>
+			<xs:documentation>Enumerated list of severity levels.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Highest">
+				<xs:annotation>
+					<xs:documentation>The highest severity.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="High">
+				<xs:annotation>
+					<xs:documentation>The 2nd highest severity.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Moderate">
+				<xs:annotation>
+					<xs:documentation>The 3rd highest severity.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Low">
+				<xs:annotation>
+					<xs:documentation>The 4th highest severity.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Lowest">
+				<xs:annotation>
+					<xs:documentation>The lowest severity.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Unknown">
+				<xs:annotation>
+					<xs:documentation>An unknown severity.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CodeCertificationStatusType">
+		<xs:annotation>
+			<xs:documentation>Enumerated list of certification status. [3000.57 5-12. Certification Authority Inactivity. A certification authority must have one of three statuses: active, inactive, or revoked.]</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Active">
+				<xs:annotation>
+					<xs:documentation>Active certification authority attests to the employee's proficiency on a system, subsystem, or service, IAW FAA Order 3000.57B.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Inactive">
+				<xs:annotation>
+					<xs:documentation>Certification authority has been determined to be inactive, IAW FAA Order 3000.57B.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Revoked">
+				<xs:annotation>
+					<xs:documentation>Certification authority has been revoked, IAW FAA Order 3000.57B.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CodeCertificationType">
+		<xs:annotation>
+			<xs:documentation>Enumerated list of certification types.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Regular">
+				<xs:annotation>
+					<xs:documentation>Regular certification authority on a system, subsystem, or service may be granted to a technical specialist by the District second-level/OCC/POG/TSOG/Academy Tech Ops Training Div manager. [3000.57 ATO TechOps Training and Certification]</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Remote Regular">
+				<xs:annotation>
+					<xs:documentation>Remote regular certification authority on a system, subsystem, or service may be granted to technical specialists who are responsible for accomplishing remote certifications through the use of Remote Maintenance Monitoring (RMM) equipment and capabilities. It is intended for OCC personnel, although other technical specialists may also be issued remote regular certification authorities when required by their position. [3000.57 ATO TechOps Training and Certification]</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Temporary">
+				<xs:annotation>
+					<xs:documentation>Temporary certification authority should only be granted during unusual circumstances (i.e., when there is an immediate need and the normal process would take too long). [3000.57 ATO TechOps Training and Certification]</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CodeConditionType">
+		<xs:annotation>
+			<xs:documentation>Enumerated list of condition types.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Repairable">
+				<xs:annotation>
+					<xs:documentation>The manufactured asset is repairable.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Serviceable">
+				<xs:annotation>
+					<xs:documentation>The manufactured asset is placed into service.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Survey">
+				<xs:annotation>
+					<xs:documentation>The manufactured asset is lost, stolen or destroyed.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CodeCoordinationRestStageDescriptionType">
+		<xs:annotation>
+			<xs:documentation>Stage of the coordination log</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Approved">
+				<xs:annotation>
+					<xs:documentation>The restoration stage is coordinated and approved to restore the services of the asset to an operational state, see also TI 6140.33, Remote Monitoring and Logging System Operations Control Center (OCC) and Service Operation Center (SOC) Event Manager (EM) User's Guide.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Callback Accepted">
+				<xs:annotation>
+					<xs:documentation>A state where information is forwarded about the restoration stage for the asset in question, see also TI 6140.33, Remote Monitoring and Logging System Operations Control Center (OCC) and Service Operation Center (SOC) Event Manager (EM) User's Guide.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Cancelled">
+				<xs:annotation>
+					<xs:documentation>The scheduled/unscheduled coordination restoration stage is cancelled, see also TI 6140.33, Remote Monitoring and Logging System Operations Control Center (OCC) and Service Operation Center (SOC) Event Manager (EM) User's Guide.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Deferred">
+				<xs:annotation>
+					<xs:documentation>The scheduled/unscheduled coordination restoration stage is deferred to another time, see also TI 6140.33, Remote Monitoring and Logging System Operations Control Center (OCC) and Service Operation Center (SOC) Event Manager (EM) User's Guide.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Delayed">
+				<xs:annotation>
+					<xs:documentation>The scheduled/unscheduled coordination restoration stage is delayed to another time, see also TI 6140.33, Remote Monitoring and Logging System Operations Control Center (OCC) and Service Operation Center (SOC) Event Manager (EM) User's Guide.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Disapproved">
+				<xs:annotation>
+					<xs:documentation>The requested coordination restoration stage is not approved, see also TI 6140.33, Remote Monitoring and Logging System Operations Control Center (OCC) and Service Operation Center (SOC) Event Manager (EM) User's Guide.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ERTS Request">
+				<xs:annotation>
+					<xs:documentation>Ready to Return To Service, and an electronic Return to Service request has been initiated, see also the Electronic Return To Service (eRTS) Quick Reference Guide, and Order 6000.15, General Maintenance Handbook for National Airspace System (NAS) Facilities.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Not Coordinated">
+				<xs:annotation>
+					<xs:documentation>The unscheduled coordination restoration stage was not coordinated, see also TI 6140.33, Remote Monitoring and Logging System Operations Control Center (OCC) and Service Operation Center (SOC) Event Manager (EM) User's Guide.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Pending Approval">
+				<xs:annotation>
+					<xs:documentation>The requested coordination restoration stage is pending approval, see also TI 6140.33, Remote Monitoring and Logging System Operations Control Center (OCC) and Service Operation Center (SOC) Event Manager (EM) User's Guide.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Pending Notification">
+				<xs:annotation>
+					<xs:documentation>The requested coordination restoration stage is in a pending state, see also TI 6140.33, Remote Monitoring and Logging System Operations Control Center (OCC) and Service Operation Center (SOC) Event Manager (EM) User's Guide.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Returned to Service">
+				<xs:annotation>
+					<xs:documentation>The scheduled/unscheduled coordination restoration stage is complete and the asset has been returned to service, see also TI 6140.33, Remote Monitoring and Logging System Operations Control Center (OCC) and Service Operation Center (SOC) Event Manager (EM) User's Guide.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CodeFaaLocationType">
+		<xs:annotation>
+			<xs:documentation>Enumeration for common types of FAA location identifiers.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Airport">
+				<xs:annotation>
+					<xs:documentation>An airport is an area of land or water used or intended to be used for the landing and taking off of aircraft, per the Airport Improvement Program (AIP) Handbook.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ARTCC">
+				<xs:annotation>
+					<xs:documentation>Air Route Traffic Control Center (ARTCC) - A facility established to provide air traffic control service to aircraft operating on IFR flight plans within controlled airspace and principally during the en route phase of flight. When equipment capabilities and controller workload permit, certain advisory/assistance services may be provided to VFR aircraft, per the FAA Pilot/Controller Glossary.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ATCSCC">
+				<xs:annotation>
+					<xs:documentation>Air Traffic Control System Command Center (ATCSCC) - An Air Traffic Tactical Operations facility responsible for monitoring and managing the flow of air traffic throughout the NAS, producing a safe, orderly, and expeditious flow of traffic while minimizing delays, per the FAA  Pilot/Controller Glossary.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ATCT">
+				<xs:annotation>
+					<xs:documentation>Air Traffic Control Tower (ATCT) - A terminal facility that uses air/ground communications, visual signaling, and other devices to provide ATC services to aircraft operating in the vicinity of an airport or on the movement area. Authorizes aircraft to land or takeoff at the airport controlled by the tower or to transit the Class D airspace area regardless of flight plan or weather conditions (IFR or VFR). A tower may also provide approach control services (radar or nonradar), per the FAA  Pilot/Controller Glossary.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CERAP">
+				<xs:annotation>
+					<xs:documentation>Center Radar Automated Radar Terminal System Processing (CENRAP) - A software/hardware modification that provides backup alphanumeric information using target data received by the Automated Radar Terminal System (ARTS) equipment via the en route automation computer system through the existing Interfacility Data Service (IDAT) NAS/ARTS interface. An azimuth pulse generator provides display sweep if needed (CENRAP plus). Interruption reporting of the Terminal Automated Radar Service (TARS) is required during CENRAP operation (see desk guide for TARS reporting requirements), per JO 6040.15 Appendix C: Combined Center/RAPCON.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TRACON">
+				<xs:annotation>
+					<xs:documentation>Terminal Radar Approach Control (TRACON) - A terminal ATC facility that uses radar and nonradar capabilities to provide approach control services to aircraft arriving, departing, or transiting airspace controlled by the facility, per the FAA Pilot/Controller Glossary.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CodeFsepClassType">
+		<xs:annotation>
+			<xs:documentation>Enumerated list of FSEP asset classes. This field is FAC_CLASS in the RMLS database. The definition of individual codes are unique to each FSEP Facility.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="0">
+				<xs:annotation>
+					<xs:documentation>The definition of individual codes are unique to each FSEP Facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="1">
+				<xs:annotation>
+					<xs:documentation>The definition of individual codes are unique to each FSEP Facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="2">
+				<xs:annotation>
+					<xs:documentation>The definition of individual codes are unique to each FSEP Facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="3">
+				<xs:annotation>
+					<xs:documentation>The definition of individual codes are unique to each FSEP Facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="4">
+				<xs:annotation>
+					<xs:documentation>The definition of individual codes are unique to each FSEP Facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="5">
+				<xs:annotation>
+					<xs:documentation>The definition of individual codes are unique to each FSEP Facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="6">
+				<xs:annotation>
+					<xs:documentation>The definition of individual codes are unique to each FSEP Facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="9">
+				<xs:annotation>
+					<xs:documentation>The definition of individual codes are unique to each FSEP Facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="A">
+				<xs:annotation>
+					<xs:documentation>The definition of individual codes are unique to each FSEP Facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="B">
+				<xs:annotation>
+					<xs:documentation>The definition of individual codes are unique to each FSEP Facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="C">
+				<xs:annotation>
+					<xs:documentation>The definition of individual codes are unique to each FSEP Facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="D">
+				<xs:annotation>
+					<xs:documentation>The definition of individual codes are unique to each FSEP Facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="E">
+				<xs:annotation>
+					<xs:documentation>The definition of individual codes are unique to each FSEP Facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="F">
+				<xs:annotation>
+					<xs:documentation>The definition of individual codes are unique to each FSEP Facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="G">
+				<xs:annotation>
+					<xs:documentation>The definition of individual codes are unique to each FSEP Facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="H">
+				<xs:annotation>
+					<xs:documentation>The definition of individual codes are unique to each FSEP Facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="J">
+				<xs:annotation>
+					<xs:documentation>The definition of individual codes are unique to each FSEP Facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="K">
+				<xs:annotation>
+					<xs:documentation>The definition of individual codes are unique to each FSEP Facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="L">
+				<xs:annotation>
+					<xs:documentation>The definition of individual codes are unique to each FSEP Facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="M">
+				<xs:annotation>
+					<xs:documentation>The definition of individual codes are unique to each FSEP Facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="N">
+				<xs:annotation>
+					<xs:documentation>The definition of individual codes are unique to each FSEP Facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="O">
+				<xs:annotation>
+					<xs:documentation>The definition of individual codes are unique to each FSEP Facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="P">
+				<xs:annotation>
+					<xs:documentation>The definition of individual codes are unique to each FSEP Facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Q">
+				<xs:annotation>
+					<xs:documentation>The definition of individual codes are unique to each FSEP Facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="R">
+				<xs:annotation>
+					<xs:documentation>The definition of individual codes are unique to each FSEP Facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="S">
+				<xs:annotation>
+					<xs:documentation>The definition of individual codes are unique to each FSEP Facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="T">
+				<xs:annotation>
+					<xs:documentation>The definition of individual codes are unique to each FSEP Facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="U">
+				<xs:annotation>
+					<xs:documentation>The definition of individual codes are unique to each FSEP Facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="V">
+				<xs:annotation>
+					<xs:documentation>The definition of individual codes are unique to each FSEP Facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="W">
+				<xs:annotation>
+					<xs:documentation>The definition of individual codes are unique to each FSEP Facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="X">
+				<xs:annotation>
+					<xs:documentation>The definition of individual codes are unique to each FSEP Facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Y">
+				<xs:annotation>
+					<xs:documentation>The definition of individual codes are unique to each FSEP Facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Z">
+				<xs:annotation>
+					<xs:documentation>The definition of individual codes are unique to each FSEP Facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CodeHolderStatusQualifierType">
+		<xs:annotation>
+			<xs:documentation>Enumerated list of credential holder qualifier status. As defined by the MOU between AOV and AMMS.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="In-Training">
+				<xs:annotation>
+					<xs:documentation>Employee is in training status, and has fulfilled part of the credential requirements, and is able to exercise the fulfilled credential portion.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="In-Transfer">
+				<xs:annotation>
+					<xs:documentation>In-transfer status is required when an active credential employee is transferring to a credentialed position at another facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Medical">
+				<xs:annotation>
+					<xs:documentation>Employee is in medical status and is not currently able to exercise the credential.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Other">
+				<xs:annotation>
+					<xs:documentation>Holder Status may require additional clarification.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CodeHolderStatusType">
+		<xs:annotation>
+			<xs:documentation>Enumerated list of credential holder status. As defined by the MOU between AOV and AMMS.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Active">
+				<xs:annotation>
+					<xs:documentation>Active status is for ATO employees that have met all requirements needed for an active credential.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Inactive">
+				<xs:annotation>
+					<xs:documentation>Inactive status removes the credential and all associated ratings.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CodeInterruptConditionDescriptionType">
+		<xs:annotation>
+			<xs:documentation>TI 6140.33B OCC/SOC Event Manager User's Guide 5.1.2.2 Filter Events. Identifies the extent of the outage.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Full Interruption">
+				<xs:annotation>
+					<xs:documentation>The interrupt condition is a full outage, see also TI 6140.33, Remote Monitoring and Logging System Operations Control Center (OCC) and Service Operation Center (SOC) Event Manager (EM) User's Guide.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Informational Entry">
+				<xs:annotation>
+					<xs:documentation>The log entry is for coordination purposes only, see also TI 6140.33, Remote Monitoring and Logging System Operations Control Center (OCC) and Service Operation Center (SOC) Event Manager (EM) User's Guide.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Reduced Facility/Service Interruption">
+				<xs:annotation>
+					<xs:documentation>The interruption or outage has resulted in a reduced service condition, see also TI 6140.33, Remote Monitoring and Logging System Operations Control Center (OCC) and Service Operation Center (SOC) Event Manager (EM) User's Guide.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Reduced System/Equipment">
+				<xs:annotation>
+					<xs:documentation>The interruption or outage has resulted in a reduced equipment condition, see also TI 6140.33, Remote Monitoring and Logging System Operations Control Center (OCC) and Service Operation Center (SOC) Event Manager (EM) User's Guide.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CodeLogStatusDescriptionType">
+		<xs:annotation>
+			<xs:documentation>Enumerated list of possible statuses of the log entry, per TI 6140.33 OCC/SOC Event Manager User's Guide.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Closed">
+				<xs:annotation>
+					<xs:documentation>Log is closed, facility/service been restored, per TI 6140.32, RMLS National Operations Control Center (NOCC)  Event Manager User's Guide.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Open">
+				<xs:annotation>
+					<xs:documentation>Log is open, facility/service remains out of service, per TI 6140.32, RMLS National Operations Control Center (NOCC) Event Manager User's Guide.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Void">
+				<xs:annotation>
+					<xs:documentation>Log has been voided, per TI 6030.6 Simplified Automated Logging (SAL) User's Manual.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CodeManufacturedAssetStatusType">
+		<xs:annotation>
+			<xs:documentation>Enumerated list of statuses for inventoried assets. As defined by AMS.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Active">
+				<xs:annotation>
+					<xs:documentation>Manufactured asset is received and available</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Inactive">
+				<xs:annotation>
+					<xs:documentation>When deleting a GIAI or after a mfg asset is disposed, GIAI label is damaged</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="In-Service">
+				<xs:annotation>
+					<xs:documentation>Manufactured asset is being installed</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="In-Transit">
+				<xs:annotation>
+					<xs:documentation>Asset is en route to a new location</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Missing">
+				<xs:annotation>
+					<xs:documentation>Manufactured asset has been lost, stolen, or destroyed</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CodeOperationalAvailabilityType">
+		<xs:annotation>
+			<xs:documentation>Enumerated list of operational availability of an asset.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Available">
+				<xs:annotation>
+					<xs:documentation>The asset is on-line / fully operational. For assets that have NAPRS reporting requirements, see the definitions in the associated NAPRS Desk Guide for this FSEP Facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Partially Available">
+				<xs:annotation>
+					<xs:documentation>The asset has reduced operational capabilities / degraded functionality. For assets that have NAPRS reporting requirements, see the definitions in the associated NAPRS Desk Guide for this FSEP Facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Unavailable">
+				<xs:annotation>
+					<xs:documentation>The asset is off-line / not operational. For assets that have NAPRS reporting requirements, see the definitions in the associated NAPRS Desk Guide for this FSEP Facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Unknown">
+				<xs:annotation>
+					<xs:documentation>The asset availability is not known / unavailable. For assets that have NAPRS reporting requirements, see the definitions in the associated NAPRS Desk Guide for this FSEP Facility.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CodeRatingStatusType">
+		<xs:annotation>
+			<xs:documentation>Enumerated list of the status of the credential. As defined by the MOU between AOV and AMMS.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Current">
+				<xs:annotation>
+					<xs:documentation>The described rating is current/valid.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Historical">
+				<xs:annotation>
+					<xs:documentation>The described rating is historical/invalid.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Other">
+				<xs:annotation>
+					<xs:documentation>Rating Status may require additional clarification.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Pending">
+				<xs:annotation>
+					<xs:documentation>The described rating is pending PM approval.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CodeRatingType">
+		<xs:annotation>
+			<xs:documentation>Enumerated list of the rating of the credential. As defined by the MOU between AOV and AMMS.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Automation">
+				<xs:annotation>
+					<xs:documentation>Ratings pertaining to systems or services used to provide automated processing of data elements used in the NAS.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Communication">
+				<xs:annotation>
+					<xs:documentation>Ratings pertaining to systems or services used to transmit or receive voice or data.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Environmental">
+				<xs:annotation>
+					<xs:documentation>Ratings pertaining to systems or services used to support, house, or protect NAS systems, subsystems and equipment used to support the FAA mission (individually or in combination) within the NAS.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NAVAID">
+				<xs:annotation>
+					<xs:documentation>Ratings pertaining to systems or services used to provide navigational data and landing guidance information for pilots.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Power">
+				<xs:annotation>
+					<xs:documentation>Ratings pertaining to systems or services used to support NAS systems, the FAA mission (individually or in combination).</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Surveillance">
+				<xs:annotation>
+					<xs:documentation>Ratings pertaining to systems or services used for real-time detection and/or display of airborne or ground positional information for air traffic control.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Weather">
+				<xs:annotation>
+					<xs:documentation>Ratings pertaining to systems or services used to provide meteorological data and guidance information.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CodeRegionType">
+		<xs:annotation>
+			<xs:documentation>Enumerated list for the NAS region associated with the asset.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="AC">
+				<xs:annotation>
+					<xs:documentation>Aeronautical Center Region.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AL">
+				<xs:annotation>
+					<xs:documentation>Alaskan Region.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CE">
+				<xs:annotation>
+					<xs:documentation>Central Region.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CT">
+				<xs:annotation>
+					<xs:documentation>William J. Hughes Technical Center Region.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EA">
+				<xs:annotation>
+					<xs:documentation>Eastern Region.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="GL">
+				<xs:annotation>
+					<xs:documentation>Great Lakes Region.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NE">
+				<xs:annotation>
+					<xs:documentation>New England Region.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NM">
+				<xs:annotation>
+					<xs:documentation>Northwest Mountain Region.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SO">
+				<xs:annotation>
+					<xs:documentation>Southern Region.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SW">
+				<xs:annotation>
+					<xs:documentation>Southwest Region.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="WA">
+				<xs:annotation>
+					<xs:documentation>Washington Region.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="WP">
+				<xs:annotation>
+					<xs:documentation>Western-Pacific Region.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CodeResponsibilityType">
+		<xs:annotation>
+			<xs:documentation>Enumerated list of codes for the entity responsible for maintaining the asset.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="#">
+				<xs:annotation>
+					<xs:documentation>Entity not owned, maintained or inspected by FAA and is restricted to NAS Coordination entities entered by the OPR. </xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="4">
+				<xs:annotation>
+					<xs:documentation>Entity owned by state government but operation and maintenance are inspected by the FAA. </xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="5">
+				<xs:annotation>
+					<xs:documentation>Entity owned by local government but operation and maintenance are inspected by the FAA.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="6">
+				<xs:annotation>
+					<xs:documentation>Entity owned by foreign government but operation and maintenance are inspected by the FAA. </xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="7">
+				<xs:annotation>
+					<xs:documentation>Entity owned by private interests but operation and maintenance are inspected by the FAA. </xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="8">
+				<xs:annotation>
+					<xs:documentation>Entity owned by foreign private interests but operation and maintenance are inspected by the FAA. </xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="9">
+				<xs:annotation>
+					<xs:documentation>Entity owned by foreign private interests but operation and maintenance are inspected by the FAA. </xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="A">
+				<xs:annotation>
+					<xs:documentation>Entity owned and maintained by FAA.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="B">
+				<xs:annotation>
+					<xs:documentation>Entity owned by DoD and maintained by FAA.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="C">
+				<xs:annotation>
+					<xs:documentation>Entity owned by a government agency and maintained by FAA.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="D">
+				<xs:annotation>
+					<xs:documentation>Entity owned by a state government and maintained by FAA.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="E">
+				<xs:annotation>
+					<xs:documentation>Entity owned by a local government and maintained by FAA.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="F">
+				<xs:annotation>
+					<xs:documentation>Entity owned by a foreign government and maintained by FAA.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="G">
+				<xs:annotation>
+					<xs:documentation>Entity owned by private interests and maintained by FAA.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="H">
+				<xs:annotation>
+					<xs:documentation>Entity owned by foreign private interests and maintained by FAA.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="I">
+				<xs:annotation>
+					<xs:documentation>Entity owned by FAA and maintained by DoD.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="J">
+				<xs:annotation>
+					<xs:documentation>Entity owned and maintained by FAA, and for which the FAA received reimbursement for the maintenance cost.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="K">
+				<xs:annotation>
+					<xs:documentation>Entity owned by DoD and maintained by FAA, and for which the FAA received reimbursement for the maintenance cost.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="L">
+				<xs:annotation>
+					<xs:documentation>Entity owned by a government agency and maintained by FAA, and for which the FAA received reimbursement for the maintenance cost.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="M">
+				<xs:annotation>
+					<xs:documentation>Entity owned by a state government and maintained by FAA, and for which the FAA received reimbursement for the maintenance cost.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="N">
+				<xs:annotation>
+					<xs:documentation>Entity owned by a local government and maintained by FAA, and for which the FAA received reimbursement for the maintenance cost.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="O">
+				<xs:annotation>
+					<xs:documentation>Entity owned by a foreign government and maintained by FAA, and for which the FAA received reimbursement for the maintenance cost.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="P">
+				<xs:annotation>
+					<xs:documentation>Entity owned by a private interest and maintained by FAA, and for which the FAA received reimbursement for the maintenance cost.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Q">
+				<xs:annotation>
+					<xs:documentation>Entity owned by a foreign private interest and maintained by FAA, and for which the FAA received reimbursement for the maintenance cost.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="R">
+				<xs:annotation>
+					<xs:documentation>Entity owned and operated by DoD, but for which a NAPRS service is furnished to FAA and used in the NAS. An example would be a Navy-owned and maintained ASR with a service to the FAA.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="S">
+				<xs:annotation>
+					<xs:documentation>Entity owned by FAA and maintained by another party, and for which the FAA provides reimbursement for the maintenance cost.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="T">
+				<xs:annotation>
+					<xs:documentation>Entity owned by DoD and maintained by another party, and for which the FAA provides reimbursement for the maintenance cost.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="U">
+				<xs:annotation>
+					<xs:documentation>Entity owned by a government agency and maintained by another party, and for which the FAA provides reimbursement for the maintenance cost.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="V">
+				<xs:annotation>
+					<xs:documentation>Entity owned by a state government and maintained by another party, and for which the FAA provides reimbursement for the maintenance cost.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="W">
+				<xs:annotation>
+					<xs:documentation>Entity owned by a local government and maintained by another party, and for which the FAA provides reimbursement for the maintenance cost.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="X">
+				<xs:annotation>
+					<xs:documentation>Entity owned by a foreign government and maintained by another party, and for which the FAA provides reimbursement for the maintenance cost.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Y">
+				<xs:annotation>
+					<xs:documentation>Entity owned by a private interest and maintained by another party, and for which the FAA provides reimbursement for the maintenance cost.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Z">
+				<xs:annotation>
+					<xs:documentation>Entity owned by a foreign private interest and maintained by another party, and for which the FAA provides reimbursement for the maintenance cost.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CodeTierType">
+		<xs:annotation>
+			<xs:documentation>Enumerated list of tier, a prioritization of FSEP Facilities in which 1 is highest.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="111">
+				<xs:annotation>
+					<xs:documentation>Tier 1 FSEP Facility, highest priority.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="222">
+				<xs:annotation>
+					<xs:documentation>Tier 2 FSEP Facility, second highest priority.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="333">
+				<xs:annotation>
+					<xs:documentation>Tier 3 FSEP Facility, third highest priority.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="XXX">
+				<xs:annotation>
+					<xs:documentation>Unknown FSEP Facility tier.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ContinuityOfServiceType">
+		<xs:annotation>
+			<xs:documentation>Enumerated list of interruption impact to ILS Continuity of Service (COS), which have requirements and procedures defined in JO 6750.57, Instrument Landing System Continuity of Service Requirements and Procedures (ILS COS), per JO 6000.15.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="false">
+				<xs:annotation>
+					<xs:documentation>False when the asset or outage does not require Instrument Landing System Continuity of Service (ILS COS) considerations as described in Order JO 6750.57, ILS COS Requirements and Procedures.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="reserved">
+				<xs:annotation>
+					<xs:documentation>Reserved for future use.  The asset or outage requires Instrument Landing System Continuity of Service (ILS COS) considerations as described in Order JO 6750.57, ILS COS Requirements and Procedures.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="true">
+				<xs:annotation>
+					<xs:documentation>True when the asset or outage requires Instrument Landing System Continuity of Service (ILS COS) considerations as described in Order JO 6750.57, ILS COS Requirements and Procedures.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CostCenterType">
+		<xs:annotation>
+			<xs:documentation>Five character alphanumeric string representing the cost center.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[A-Z0-9]{5}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DateHourType">
+		<xs:annotation>
+			<xs:documentation>Date and hour format.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:dateTime"/>
+	</xs:simpleType>
+	<xs:simpleType name="DomainCodeType">
+		<xs:annotation>
+			<xs:documentation>Domain code type.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="mb:String50Type"/>
+	</xs:simpleType>
+	<xs:simpleType name="FaaLocationOtherType">
+		<xs:annotation>
+			<xs:documentation>Field allowing for identification of other types of FAA location identifiers.</xs:documentation>
+		</xs:annotation>
+		<xs:list itemType="mb:String15Type"/>
+	</xs:simpleType>
+	<xs:simpleType name="FsepFacType">
+		<xs:annotation>
+			<xs:documentation>The five- character alphanumeric field contains the type of entity in FSEP, including services. This is the field FAC_TYPE in the RMLS/FSEP database. Sample values include the following.
+ASR: Airport Surveillance Radar
+ATIS: Automatic Terminal Information System
+ATCT: Airport Traffic Control Tower
+BUECS: Backup Emergency Communications Service
+CFAD: Composite Flight Data Processing Service
+EADS: En Route Automation Display System</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9A-Z]{2,5}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FsepFicType">
+		<xs:annotation>
+			<xs:documentation>The Facility Identification Code (FIC) provides the make, model, and class for identifying equipment in FSEP. The make and model codes make up the four-character FIC Code. The FIC Code is mandatory in all non-service records. The FIC Codes established prior to the release of older versions of Order 6000.5 are still valid and remain in the FSEP Desk guides until the equipment is retired from the NAS. Not all legacy codes are changed to the new FIC Code. This is the field FAC_CODE_FACILITY in the RMLS/FSEP database. Sample values include the following.
+ASR FICs: 53AC,  53AG, SC00
+GBAS FICs: NWA0
+TBFM FICs: 61UB, AE00</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9A-Z]{4,5}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FsepLocIdType">
+		<xs:annotation>
+			<xs:documentation>This three or four character field contains the city and state where the equipment is physically located.   Location identifiers assignment process is detailed in Order 6000.5E, Chapter 3, Section 3.1 Location Identifier Process. This is the field FAC_IDENT in the RMLS/FSEP database but which is typically referred to as LOC_ID. There are three sources for a LOC_ID:
+
+	1. A value from the IDENT column in the 7350.9.
+	2. A value from the IDENT column in the 7350.9 to which a single character suffix is added. The suffix is added when there is more than one instance of the same FSEP Facility at a specific location. An example is the Precision Approach Path Indicators (PAPI) at Boston Logan Airport. There are 4 of these, and each has a different LOC_ID derived from BOS, the identifier for Logan. These are BOS, BOSA, BOSB and BOSC.
+	3. A made up value starting with a Q. These are known as Q Identifiers and are created when there is no established identifier within 20 miles of the location of the FSEP Facility.
+
+Sample values include I90, DAL, TPA, CXYA, DCAP, PUB, ZDCC, DFWA.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[A-Z0-9]{3,4}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FsepSystemCodeType">
+		<xs:annotation>
+			<xs:documentation>This code is a one-character numeric code that identifies the domain of the system within the NAS.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9]{1}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Integer22Type">
+		<xs:annotation>
+			<xs:documentation>Allows up to a 22 digit integer</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:maxInclusive value="9999999999999999999999"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="MonitoringType">
+		<xs:annotation>
+			<xs:documentation>Enumerated list of monitoring status options.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Monitored">
+				<xs:annotation>
+					<xs:documentation>Indicates a value is monitored.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Unmonitored">
+				<xs:annotation>
+					<xs:documentation>Indicates a value is not monitored.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NdcEmpIdType">
+		<xs:annotation>
+			<xs:documentation>Specifies allowable values for the NDC employee ID.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:maxInclusive value="99999999"/>
+			<xs:minInclusive value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="OperationalContingencyType">
+		<xs:annotation>
+			<xs:documentation>Enumerated list of the state of Operational Contingency Reporting, includes ATC-Alert notifications and ATC-Limited and ATC-Zero Operational Contingency Level (OCL) declarations as outlined in Order JO 1900.47 - Air Traffic Control Operational Readiness and Contingency Planning, for all outages/projects/events, planned or unplanned, that could cause a significant system impact, reduction in services, or reduction in capacity.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ATC-Zero">
+				<xs:annotation>
+					<xs:documentation>Per JO 1900.47 Air Traffic Control Operational Readiness and Contingency Planning, ATC-ZERO is an Operational Contingency Level (OCL) declared when any of the following occur: 
+a. A facility is unable to provide services, or traffic flow management in the case of the ATCSCC, during published operating hours with its facility personnel or with personnel that routinely work the transferred airspace or services from either the normal location or any alternate location. 
+b. A facility transfers services to another facility whose personnel do not routinely work the transferred airspace or services.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ATC-Limited">
+				<xs:annotation>
+					<xs:documentation>Per JO 1900.47 Air Traffic Control Operational Readiness and Contingency Planning, ATC-Limited is an Operational Contingency Level (OCL) declared when any of the following occur: 
+a. A combined Tower/TRACON ("up/down") facility is unable to provide services from one area (Tower Cab or TRACON), but the other area remains in operation. 
+b. A multi-area facility is unable to provide services from one or more areas, but other areas remain in operation. 
+c. A facility is providing services with its facility personnel from an alternate location. 
+d. A facility has transferred all services during published operating hours to another facility whose personnel routinely work the transferred airspace or services. </xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ATC-Alert">
+				<xs:annotation>
+					<xs:documentation>A precautionary notification made when a facility remains in normal operations but anticipates disruptive condition(s) or experiences a loss of redundancy that may indicate a potential interruption in services, per JO 1900.47 Air Traffic Control Operational Readiness and Contingency Planning.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PostalCodeType">
+		<xs:annotation>
+			<xs:documentation>The Postal or Zip code for the address.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9][0-9][0-9][0-9][0-9]"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="RmlsHexId">
+		<xs:annotation>
+			<xs:documentation>A Hex Identifier used by the RMLS system to identify Logical Units and Data Points.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9A-F]{0,2}x?[0-9A-F]{1,2}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="RunwayType">
+		<xs:annotation>
+			<xs:documentation>This three-character field contains the applicable runway number for the Terminal Area Navigation facilities.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="([1-9]|[1-2][0-9]|[3][0-6])[LRCX]?"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="StatusDateType">
+		<xs:annotation>
+			<xs:documentation>Specifies a type of date format.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="\d{2}[/]\d{2}[/]\d{4}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="String1000Type">
+		<xs:annotation>
+			<xs:documentation>Specifies a string of up to 1000 characters.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="1000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="String10Type">
+		<xs:annotation>
+			<xs:documentation>Specifies a string of up to 10 characters.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="String150Type">
+		<xs:annotation>
+			<xs:documentation>Specifies a string of up to 150 characters.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="150"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="String15Type">
+		<xs:annotation>
+			<xs:documentation>Specifies a string of up to 15 characters.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="15"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="String1Type">
+		<xs:annotation>
+			<xs:documentation>Specifies a string of up to 1 character.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="String255Type">
+		<xs:annotation>
+			<xs:documentation>Specifies a string of up to 255 characters.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="255"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="String4000Type">
+		<xs:annotation>
+			<xs:documentation>Specifies a string of up to 4000 characters.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="4000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="String50Type">
+		<xs:annotation>
+			<xs:documentation>Specifies a string of up to 50 characters.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="String5Type">
+		<xs:annotation>
+			<xs:documentation>Specifies a string of up to 5 characters.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="5"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TextCountryCodeType">
+		<xs:annotation>
+			<xs:documentation>The country code as specified by ISO 3166.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[A-Z]{2}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TextCountryNameType">
+		<xs:annotation>
+			<xs:documentation>The country of the physical address for the location or organization. Full name, not ISO 3166 abbreviations. [AIXM 5.1]</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="0"/>
+			<xs:maxLength value="60"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TextPhoneType">
+		<xs:annotation>
+			<xs:documentation>The digits of a phone number.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="(\+)?[0-9\s\-\(\)]+"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UsStateAbbreviationType">
+		<xs:annotation>
+			<xs:documentation>Format for a US state abbreviation.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[A-Z]{2}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="YearType">
+		<xs:annotation>
+			<xs:documentation>The format for specifying the year.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:minInclusive value="1800"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="AdditionalInformation">
+		<xs:annotation>
+			<xs:documentation>Additional information to be contained in the message that is not standardized within the XSD.  This information is encoded via name/value pairs.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="nameValue" type="mb:NameValuePair" minOccurs="0" maxOccurs="99">
+				<xs:annotation>
+					<xs:documentation>Name value pair allowing for additional information to be associated with an element.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CodeDescriptionType">
+		<xs:annotation>
+			<xs:documentation>Complex type containing standardized codes and their descriptions. These fields are expected to be populated by drop-down lists or enumerations.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="code" type="mb:String10Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The words, letters, or numbers associated with a description.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="description" type="mb:String1000Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Description of the corresponding code. This description is expected to be populated by drop-down lists or enumerations.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Documentation">
+		<xs:annotation>
+			<xs:documentation>Complex type containing information regarding reference documentation.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="detail" type="mb:String4000Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>An excerpt or summary describing the information within the documentation.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="identifier" type="mb:String50Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Identifying code corresponding to the documentation, such as its FAA order number. (e.g., TI_6140.32)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="section" type="mb:String10Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The section number or paragraph number corresponding within the documentation. (e.g., Sec 2)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="version" type="mb:String5Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The version number or change number corresponding to the documentation. (e.g., R2)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FaaLocationTypeChoice">
+		<xs:annotation>
+			<xs:documentation>Choice structure representing FAA Location Codes or FAA Location other types.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="locationType" type="mb:CodeFaaLocationType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Type of FAA location identifier.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="locationOtherType" type="mb:FaaLocationOtherType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Identification of other types of FAA location identifiers.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="NameValuePair">
+		<xs:annotation>
+			<xs:documentation>Complex type allowing users to enter supplementary, un standardized information via name/value pairs.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence/>
+		<xs:attribute name="name" use="optional" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>Name of the property or attribute</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="value" use="optional" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>Value of the property or attribute</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="Provenance">
+		<xs:annotation>
+			<xs:documentation>Contains the provenance information such as the reported timestamp and the source of the report.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="date" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The date or timestamp indicating when the information was reported.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="source" type="mb:String50Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Source of the reported information.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RunwayInformation">
+		<xs:annotation>
+			<xs:documentation>Complex type containing information about the runway.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="primaryRunway" type="mb:RunwayType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This three-character field contains the applicable runway number for the Terminal Area Navigation facilities.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secondaryRunway" type="mb:RunwayType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This three-character field contains a second runway number for Terminal Area Navigation facilities with dual runways. See the FSEP Desk Guide for specific runway information, i.e., DME.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

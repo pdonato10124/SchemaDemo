@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project 
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" 
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	
+	<modelVersion>4.0.0</modelVersion>
+	
+	<artifactId>SchemaDemo</artifactId>
+	<groupId>gov.faa.nnew.sa.schemademo</groupId>
+	<packaging>pom</packaging>
+	<version>1.0.0-SNAPSHOT</version>
+	<name>SchemaDemo :: Parent</name>
+	<url>http://www.faa.gov</url>
+	
+	
+	<modules>
+		<module>bindings-mmixm</module>
+	</modules>
+	
+	<properties>
+		<schemademo-version-number>1.0.0</schemademo-version-number>
+		<schemademo-service-assembly.version>${schemademo-version-number}-SNAPSHOT</schemademo-service-assembly.version>
+		<schemademo-sa.version>1.0.0-SNAPSHOT</schemademo-sa.version>
+		<nnewutil-sa.version>1.0.0-SNAPSHOT</nnewutil-sa.version>
+
+		
+		<!-- Common properties for all projects: -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>21</maven.compiler.source>                            <!-- 1.8 -> 11 10/30/2021 pvd -->
+		<maven.compiler.target>21</maven.compiler.target>                            <!-- 1.8 -> 11 10/30/2021 pvd -->
+		<maven.enforcer.require.java.version>1.8</maven.enforcer.require.java.version>
+		
+		<maven.javadoc.maxmemory>2048m</maven.javadoc.maxmemory>
+		<maven-compiler-plugin.maxmemory>1024m</maven-compiler-plugin.maxmemory>
+		<maven.test.failure.ignore>false</maven.test.failure.ignore>
+		<maven.test.skip>false</maven.test.skip>
+		
+		<build-helper-maven-plugin.version>3.3.0</build-helper-maven-plugin.version> <!-- 1.5 -> 1.8 08/12/2013 -> 3.2.0 11/03/2021 -> 3.3.0 03/03/2022 pvd -->
+		<maven-antrun-plugin.version>1.7</maven-antrun-plugin.version>               <!-- 1.2 -> 1.6 09/06/2011 -> 1.7 04/05/2013 pvd -->
+		<maven-assembly-plugin.version>2.4</maven-assembly-plugin.version>           <!-- NOTE: having problem w/ version 2.2-beta-5 (probably due to plexus-archiver), keep 2.2-beta-2 -->
+		                                                                             <!-- NOTE 2.2.1 causes StackOverflowError with plexus.archiver, keep 2.2-beta-2 06/24/2011 -->
+		                                                                             <!-- 2.2-beta-2 -> 2.3 11/13/2012 -> 2.4 04/05/2013 pvd -->
+		<maven-compiler-plugin.version>3.9.0</maven-compiler-plugin.version>         <!-- -> 3.0 08/09/2013 -> 3.1 02/03/2017 -> 3.8.1 10/30/2021 -> 3.9.0 03/03/2022 pvd -->
+		<maven-javadoc-plugin.version>3.3.1</maven-javadoc-plugin.version>           <!-- -> 2.9 08/09/2013 -> 2.10.4 02/06/2017 -> 3.3.1 10/30/2021 pvd -->
+		<maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>         <!-- -> 2.9  06/24/2011 -> 2.14 04/05/2013 -> 2.17 02/03/2017 -> 3.0.0-M5 08/31/2021 -> 3.1.2 07/14/2023 pvd-->
+		<javancss-maven-plugin.version>2.1</javancss-maven-plugin.version>           <!-- 2.0 -> 2.1 11/01/2021 pvd -->
+		<maven-war-plugin.version>2.3</maven-war-plugin.version>                     <!-- 2.1.1 -> 2.3 04/05/2013 pvd -->
+		<maven-source-plugin.version>3.2.1</maven-source-plugin.version>             <!-- -> 2.1.1 11/08/2011 -> 2.1.2 11/13/2012 -> 2.2.1 04/05/2013 -> 3.2.1 11/01/2021 pvd --> 
+		
+		
+		<maven-site-plugin.version>3.10.0</maven-site-plugin.version>                <!-- -> 3.2 11/14/2012 -> 3.3 11/06/2014 -> 3.9.1 10/30/2021 -> 3.10.0 03/03/2022 pvd -->
+		<maven-dependency-plugin.version>3.1.1</maven-dependency-plugin.version>     <!-- 3.1.1 -> 3.2.0 08/31/2021 3.2.0 hangs, back to 3.1.1 pvd -->
+		<maven-pdf-plugin.version>1.5.1</maven-pdf-plugin.version>                   <!-- 1.2 -> 1.4 10/30/2021 -> 1.5.1 03/03/2022 pvd -->
+		<maven-project-info-reports-plugin.version>3.1.2</maven-project-info-reports-plugin.version> <!-- 2.6 -> 2.7 02/03/2017 -> 3.1.2 11/01/2021 pvd -->
+		<maven-eclipse-plugin.version>2.10</maven-eclipse-plugin.version>            <!-- 2.6 -> 2.9 11/14/2012 -> 2.10 10/30/2021 pvd -->
+		<maven-pmd-plugin.version>3.16.0</maven-pmd-plugin.version>                  <!-- -> 3.0.1 08/09/2013 -> 3.2 02/03/2017 -> 3.15.0 11/01/2021 -> 3.16.0 03/03/2022 pvd -->
+		<jdepend-maven-plugin.version>2.0</jdepend-maven-plugin.version>             <!-- 2.0-beta-2 -> 2.0 10/30/2021 pvd -->
+		<maven-enforcer-plugin.version>1.2</maven-enforcer-plugin.version>           <!-- 1.1.1 -> 1.2 08/09/2013 pvd -->
+		<cobertura-maven-plugin.version>2.7</cobertura-maven-plugin.version>         <!-- 2.6 -> 2.7 11/01/2021 pvd -->
+
+		<xmlbeans.version>5.3.0</xmlbeans.version>                                   <!-- -> 5.0.2 10/30/2021 -> 5.0.3 03/03/2022 -> 5.1.0 06/28/2022 -> 5.1.1 04/14/2023i -> 5.3.0 07/18/2025 pvd -->
+		<xmlbeans.plugin.version>5.3.0</xmlbeans.plugin.version>                     <!-- 5.0.2 11/02/2021 -> 5.0.3 03/03/2022 -> 5.1.0 06/28/2022 -> 5.1.1 09/14/2023 -> BACK TO 5.1.0 pvd -->
+		                                                                             <!-- NOTE: 5.1.1 causes java.lang.NoSuchMethodError: 'java.lang.ClassLoader[] org.apache.logging.log4j.util.LoaderUtil.getClassLoaders() -->
+
+		<xmlbeans-maven-plugin.version>2.3.3</xmlbeans-maven-plugin.version>
+		<xmlbeans-maven-plugin.maxmemory>1024m</xmlbeans-maven-plugin.maxmemory>
+		<xmlbeans-maven-plugin.java.source.version>1.7</xmlbeans-maven-plugin.java.source.version>
+		
+		<junit.version>4.13.2</junit.version>                                        <!-- -> 4.9 08/29/2011 -> 4.10 10/05/2011 -> 4.11 04/05/2013 -> 4.12 04/30/2015 -> 4.13.2 12/17/2021 pvd -->
+		
+		<log4j.version>2.25.1</log4j.version>                                        <!-- 1.2.14 -> 1.2.16  06/24/2011 -> 1.2.17 06/11/2012 -> 2.25.1 07/21/2025 pvd -->
+		<log4j-core.version>2.17.2</log4j-core.version>                              <!-- 2.14.0 -> 2.16.0 12/17/2021 -> 2.17.2 03/03/2022 pvd -->
+		<org.slf4j.version>2.0.13</org.slf4j.version>                                <!-- 1.6.2 -> 1.6.4 02/21/2012 -> 1.7.5 08/09/2013 -> 2.0.13 07/21/2025 pvd -->
+		<wss4j.version>1.5.8</wss4j.version>
+		
+		
+		<spring.version>5.1.1.RELEASE</spring.version>                               <!-- 4.1.1.RELEASE -> 4.1.2.RELEASE 12/08/2014 -> -> 4.2.1.RELEASE 10/06/2015 pvd  -->
+		                                                                             <!-- ->-> 5.0.6.RELEASE 05/24/2018 -> 5.0.7.RELEASE 06/13/2018 -> 5.1.1.RELEASE 10/15/2018 pvd -->
+		<spring-ws-core.version>3.0.4.RELEASE</spring-ws-core.version>               <!-- Keep v. 2.0.0-M1 ; 2.0.2.RELEASE fails 06/14/2011 -> 2.1.0.RELEASE 08/09/2013 -> 2.1.4.RELEASE 11/19/2013 -> 2.2.0.RELEASE 09/17/2014 -> 2.2.1.RELEASE 06/05/2015 pvd -->
+		<spring-ws-security.version>3.0.4.RELEASE</spring-ws-security.version>       <!-- Keep v. 2.0.0-M1 ; 2.0.2.RELEASE fails 06/14/2011 -> 2.1.0.RELEASE 08/09/2013 -> 2.1.4.RELEASE 11/19/2013 -> 2.2.0.RELEASE 09/17/2014 -> 2.2.1.RELEASE 06/05/2015 pvd -->
+		                                                                             <!-- NOTE: KEEP 2.2.0.RELEASE since 2.2.2.RELEASE fails for both spring-ws-core and spring-ws-security 11/05/2015 pvd -->
+		                                                                             <!-- 2.4.0.RELEASE 12/08/2016 -> 3.0.1.RELEASE 05/24/2018 -> 3.0.4.RELEASE 10/15/2018 pvd -->
+		
+		
+		<xstream.version>1.4.8</xstream.version>                                     <!-- 1.3.1 -> 1.4.1 09/29/2011 ->-> 1.4.8 02/19/2015 pvd -->
+		<apache.wss4j.version>1.6.19</apache.wss4j.version>                          <!-- 1.5.8 -> 1.6.11 08/09/2013 ->-> 1.6.17 10/27/2014 -> 1.6.18 02/19/2015 -> 1.6.19 12/18/2015 pvd -->
+		<apache.xmlsec.version>2.1.2</apache.xmlsec.version>                         <!-- 2.0.8 05/24/2018 -> 2.1.2 06/13/2018 pvd -->
+		<httpclient.version>4.5.6</httpclient.version>                               <!-- 4.2.2 11/28/2012 ->-> 4.5.3 02/03/2017 -> 4.5.5 05/25/2018 -> 4.5.6 10/15/2018 pvd -->
+		<httpcore.version>4.4.10</httpcore.version>                                  <!-- 4.2.2 11/28/2012 ->-> 4.4.5 07/21/2016 -> 4.4.6 02/03/2017 -> 4.4.9 05/24/2018 -> 4.4.10 10/15/2018 pvd -->
+
+
+		<commons-net.version>3.0.1</commons-net.version>                             <!-- 2.2 -> 3.0.1  06/24/2011 pvd -->
+		<commons-httpclient.version>3.1</commons-httpclient.version>
+		<commons-compress.version>1.8.1</commons-compress.version>
+		<axiom.version>1.2.12</axiom.version>                                        <!-- Updated 1.2.11 -> 1.2.12  07/20/2011 pvd -->
+		<stax-api.version>1.0.1</stax-api.version>
+		<org.apache.activemq.version>5.5.1</org.apache.activemq.version>             <!-- 5.2.0 -> 5.5.0 09/29/2011 -> 5.5.1 11/09/2011 pvd -->
+
+
+		<netcdf.version>4.2.26</netcdf.version>                                      <!-- 4.0.41 -> 4.2.26 11/01/2011 pvd -->
+		<grib.version>8.0.29</grib.version>                                          <!-- 6.0.18 -> 4.2.26 (yes, a lower number, its been restructed) 11/01/2011 -> 8.0.29 11/09/2011 pvd -->
+		<unidataCommon.version>4.2.26</unidataCommon.version>
+		
+		<javax.jms.version>1.1</javax.jms.version>
+		<javax.mail.version>1.5.0-b01</javax.mail.version>                           <!-- 1.4.1 -> 1.4.4 11/01/2011 -> 1.4.5-rc1 02/23/12 -> 1.5.0-b01 ? pvd -->
+		<javax.activation.version>1.1.1</javax.activation.version>
+	
+		<jsch.version>0.1.51</jsch.version>                                          <!-- 0.1.48 -> 0.1.49 11/13/2012 -> 0.1.50 08/12/2013 -> 0.1.51 04/22/2014 pvd -->
+	</properties>
+
+	<organization>
+		<name>Basic Commerce and Industries, Inc.</name>
+		<url>http://www.bcisse.com/</url>
+	</organization>
+
+	<developers>
+		<developer>
+			<name>Peter V Donato</name>
+			<id>pdonato</id>
+			<email>peter.ctr.donato@no#spam#!faa.gov</email>
+			<organization>BCI, Inc.</organization>
+		</developer>
+	</developers>
+
+	<build>
+		<plugins>
+		
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin.version}</version>
+				<configuration>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
+				</configuration>
+			</plugin>
+			
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven-surefire-plugin.version}</version>
+				<configuration>
+					<reportFormat>plain</reportFormat>
+					<trimStackTrace>false</trimStackTrace>
+					<excludes>
+						<exclude>**/*SketchTest.java</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+			
+			
+			<!--
+			The Site Plugin is used to generate a site for the project. The generated site also includes the 
+			project's reports that were configured in the POM.
+			 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>${maven-site-plugin.version}</version>
+			</plugin>
+			<!--
+			The Maven Project Info Reports plugin is used to generate reports information about the project.
+			-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>${maven-project-info-reports-plugin.version}</version>
+			</plugin>
+			
+			
+			
+			
+			<!--
+			-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>${maven-dependency-plugin.version}</version>
+			</plugin>
+
+
+			
+			<!--
+			This plug-in allows you to generate a PDF version of your project's documentation. 
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pdf-plugin</artifactId>
+				<version>${maven-pdf-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>pdf</id>
+						<phase>site</phase>
+						<goals>
+							<goal>pdf</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.reporting.outputDirectory}</outputDirectory>
+							<includeReports>true</includeReports>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			 -->
+			
+
+			<!-- 
+			Testing usage of the enforcer plugin   mvn enforcer:enforce 
+			The Enforcer plugin provides goals to control certain environmental constraints such as Maven version, JDK version and 
+			OS family along with many more standard rules and user created rules.
+			-->
+			<!--
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>${maven-enforcer-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>enforce-versions</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<requireMavenVersion>
+									<version>2.2.1</version>
+								</requireMavenVersion>
+								
+								<requireJavaVersion>
+									<version>${maven.enforcer.require.java.version}</version>
+								</requireJavaVersion>
+								
+								<requireReleaseDeps>
+									<message>[ERROR] No Snapshot Dependencies Allowed!</message>
+								</requireReleaseDeps>
+								
+								<requireReleaseVersion>
+									<message>[ERROR] No Snapshot Releases Allowed!</message>
+								</requireReleaseVersion>
+								
+								<requireUpperBoundDeps/>
+								
+								<DependencyConvergence/>
+							</rules>
+							<fail>false</fail>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			-->
+			
+			<!--
+			The Javadoc Plugin uses the Javadoc tool to generate javadocs for the specified project. The plugin can also be used to 
+			package the generated javadocs into a jar file for distribution.
+			-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>${maven-javadoc-plugin.version}</version>
+				<configuration>
+					<maxmemory>1024m</maxmemory>
+					<excludePackageNames>net.opengis.*:org.isotc211.x2005.*:xint.eurocontrol.*:intl.eurocontrol.*:org.w3.*:us.gov.*:noNamespace:gov.faa.nawx.*</excludePackageNames>
+					<defaultAuthor>Peter V Donato</defaultAuthor>
+					<level>public</level>
+					<fixTags>author,param,return,throws</fixTags>
+					<outputDirectory>${basedir}/target/generated-sources</outputDirectory>
+				</configuration>
+			</plugin>
+
+
+		</plugins>
+	</build>
+
+	<reporting>
+		<plugins>
+		
+			<!-- 
+			JavaNCSS is a source measurement suite for Java which produces quantity and complexity metrics for your java source code. 
+			-->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>javancss-maven-plugin</artifactId>
+				<version>${javancss-maven-plugin.version}</version>
+				<configuration>
+					<ncssLimit>350</ncssLimit>
+					<ccnLimit>20</ccnLimit>
+					<failOnViolation>false</failOnViolation>
+					<linkXRef>true</linkXRef>
+				</configuration>
+			</plugin>
+			
+			<!-- 
+			PMD is a source code analyzer. It finds unused variables, empty catch blocks, unnecessary object creation, and so forth. 
+			This plugin also supports the separate Copy/Paste Detector tool (or CPD) distributed with PMD.
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>${maven-pmd-plugin.version}</version>
+				<configuration>
+					<targetJdk>${maven.compiler.source}</targetJdk>
+					<linkXRef>true</linkXRef>
+				</configuration>
+			</plugin>
+			-->
+			
+			<!--
+			The JDepend Maven plugin produces a nicely formatted metrics report based on your project.
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jdepend-maven-plugin</artifactId>
+				<version>${jdepend-maven-plugin.version}</version>
+			</plugin>
+			-->
+
+			<!--
+			The Surefire Plugin is used during the test phase of the build lifecycle to execute the unit tests of an application. 
+			It generates reports in 2 different file formats: Plain text files (*.txt), XML files (*.xml)
+			-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven-surefire-plugin.version}</version>
+				<configuration>
+					<skip>${maven.test.skip}</skip>
+					<testFailureIgnore>${maven.test.failure.ignore}</testFailureIgnore>
+				</configuration>
+			</plugin>
+			
+			<!-- 
+			The JXR Plugin produces a cross-reference of the project's sources. The generated reports make it easier for the user to reference
+			or find specific lines of code. It is also handy when used with the PMD Plugin for referencing errors found in the code. 
+			2.3 -> 2.4 02/03/2017 pvd -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jxr-plugin</artifactId>
+				<version>3.1.1</version>   <!-- 2.4 -> 3.1.1 10/30/2021 pvd -->
+			</plugin>
+			
+			<!--
+			The Eclipse Plugin is used to generate Eclipse IDE files (*.classpath, *.wtpmodules and the .settings folder) for use with a project.
+			-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>${maven-eclipse-plugin.version}</version>
+			</plugin>
+
+			<!--
+			<plugin>
+				<groupId>org.gmetrics</groupId>
+				<artifactId>GMetrics</artifactId>
+				<version>0.6</version>
+			</plugin>
+			-->
+			<!-- Test coverage -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<version>${cobertura-maven-plugin.version}</version>
+				<configuration>
+					<formats>
+						<format>html</format>
+						<format>xml</format>
+					</formats>
+				</configuration>
+			</plugin>
+			
+			
+		</plugins>
+		
+	</reporting>
+
+</project>

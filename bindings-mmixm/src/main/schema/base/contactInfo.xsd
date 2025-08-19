@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mb="https://mmixm.aero/base/4" targetNamespace="https://mmixm.aero/base/4" elementFormDefault="qualified" version="4.0.0">
+	<xs:annotation>
+		<xs:documentation>This package contains elements describing information used to contact a person or organization (e.g., mailing address, phone number, etc.).</xs:documentation>
+	</xs:annotation>
+	<xs:include schemaLocation="datatype.xsd"/>
+	<xs:complexType name="ContactInformation">
+		<xs:annotation>
+			<xs:documentation>Complex type containing information required to enable contact with a person and/or organization.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="email" type="mb:String255Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>E-mail address of a person.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="postalAddress" type="mb:PostalAddress" minOccurs="0" maxOccurs="99">
+				<xs:annotation>
+					<xs:documentation>Postal address associated with a person.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="telephoneContact" type="mb:TelephoneContact" minOccurs="0" maxOccurs="99">
+				<xs:annotation>
+					<xs:documentation>Telephone contact associated with a person.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PostalAddress">
+		<xs:annotation>
+			<xs:documentation>Complex type containing data associated with a postal address.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="administrativeArea" type="mb:UsStateAbbreviationType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The state or province of the location.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="category" type="mb:String15Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The type of address (e.g., Home, Work, Shipping, etc.).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="city" type="mb:String50Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The City associated with the address.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="countryCode" type="mb:TextCountryCodeType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Country code associated with the postal address.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="countryName" type="mb:TextCountryNameType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Country associated with the postal address.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="deliveryPoint" type="mb:String255Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Defines address for delivering an item</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="postalCode" type="mb:PostalCodeType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The Postal or Zip code for the address.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TelephoneContact">
+		<xs:annotation>
+			<xs:documentation>Complex type containing phone number information.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="phoneCategory" type="mb:String15Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The phone type (e.g., Home, Office, Personal Mobile, Work Mobile, etc.).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="voice" type="mb:TextPhoneType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Phone number for a specific person or office.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mb="https://mmixm.aero/base/4" targetNamespace="https://mmixm.aero/base/4" elementFormDefault="qualified" version="4.0.0">
+	<xs:annotation>
+		<xs:documentation>This package contains elements describing locations (e.g., geographical coordinates, address, or even virtual locations such as IP address).</xs:documentation>
+	</xs:annotation>
+	<xs:include schemaLocation="contactInfo.xsd"/>
+	<xs:include schemaLocation="datatype.xsd"/>
+	<xs:complexType name="ElectronicLocation">
+		<xs:annotation>
+			<xs:documentation>Complex type containing the electronic location.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ip" type="mb:String50Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The digital location of document content represented as an IP address.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="textDescription" type="mb:String255Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Description of electronic location.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="url" type="xs:anyURI" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The digital location of document content represented as a URL.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FaaLocation">
+		<xs:annotation>
+			<xs:documentation>Complex type containing the FAA location identifier (7350.9P).</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="identifier" type="mb:String5Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The FAA location identifier is an assigned code used to simplify the identification of a landing facility,
+navigational aid, weather station or manned air traffic control facility (7350.9P).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="type" type="mb:FaaLocationTypeChoice" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Type of location associated with an FAA location identifier.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GeographicLocation">
+		<xs:annotation>
+			<xs:documentation>Complex type containing the geographic location. The CRS associated with these elements is assumed to be urn:ogc:def:crs:EPSG::4326.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="elevation" type="xs:integer" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The elevation at the given location.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="geographicLocationProvenance" type="mb:Provenance" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The date and source for the geographic location data.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="latitude" type="xs:decimal" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The latitude for a given location.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="longitude" type="xs:decimal" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The longitude for a given location.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Location">
+		<xs:annotation>
+			<xs:documentation>Complex type containing various ways to represent location. </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="electronicLocation" type="mb:ElectronicLocation" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Electronic location, such as URL or IP address.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="faaLocation" type="mb:FaaLocation" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>FAA location identifier and type information, per JO 7350.9, Location Identifiers.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="geographicLocation" type="mb:GeographicLocation" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The geographic location, such as latitude, longitude, and elevation.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="gsaAddress" type="mb:String10Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This field contains the GSA address code assigned by the FAA Logistic Center.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="physicalAddress" type="mb:PhysicalAddress" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The physical location, such as address and travel details.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PhysicalAddress">
+		<xs:annotation>
+			<xs:documentation>Complex type containing a physical address.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="address" type="mb:PostalAddress" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The address recognized by the US Postal Service.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="buildYear" type="mb:YearType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The year that the building construction was completed.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="description" type="mb:String255Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Additional details about the address such as building number or name, office number, etc.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="estimatedTravelDuration" type="xs:duration" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The estimated one-way travel duration to the physical address.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="estimatedTrips" type="xs:integer" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This numeric field contains the estimated technicians' trip frequency, per FAA 6000.5 Facility, Service, and Equipment Profile (FSEP), Appendix B: Facility/Service Data Definitions.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

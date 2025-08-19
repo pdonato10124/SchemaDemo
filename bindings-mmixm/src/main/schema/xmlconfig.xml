@@ -1,0 +1,27 @@
+<xb:config 
+	xmlns:xb="http://xml.apache.org/xmlbeans/2004/02/xbean/config"
+	xmlns:mxm="https://mmixm.aero/4"
+	xmlns:mb="https://mmixm.aero/base/4"
+	xmlns:mx="https://mmixm.aero/features/4">
+	
+	<!--
+	https://cwiki.apache.org/confluence/display/XMLBEANS/XsdConfigFile 
+	-->
+	
+	<!-- These are not needed: (this is the default) 
+	-->
+	<xb:namespace uri="https://mmixm.aero/4">
+		<xb:package>aero.mmixm.x4</xb:package>
+	</xb:namespace> 
+
+	<xb:namespace uri="https://mmixm.aero/base/4">
+		<xb:package>aero.mmixm.base.x4</xb:package>
+	</xb:namespace> 
+
+	<xb:namespace uri="https://mmixm.aero/features/4">
+		<xb:package>aero.mmixm.features.x4</xb:package>
+	</xb:namespace> 
+
+
+	
+</xb:config>

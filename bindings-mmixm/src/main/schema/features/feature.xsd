@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mx="https://mmixm.aero/features/4" targetNamespace="https://mmixm.aero/features/4" elementFormDefault="qualified" version="4.0.0">
+	<xs:annotation>
+		<xs:documentation>The Features package includes sub-packages that describe domain-specific concepts and entities, e.g., assets, technician qualifications, and asset monitoring events.</xs:documentation>
+	</xs:annotation>
+	<xs:include schemaLocation="./asset.xsd"/>
+	<xs:include schemaLocation="./logging.xsd"/>
+	<xs:include schemaLocation="./monitoring.xsd"/>
+	<xs:include schemaLocation="./qualification.xsd"/>
+</xs:schema>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mb="https://mmixm.aero/base/4" xmlns:mx="https://mmixm.aero/features/4" targetNamespace="https://mmixm.aero/base/4" elementFormDefault="qualified" version="4.0.0">
+	<xs:annotation>
+		<xs:documentation>This package contains the message classes used in MMIXM.</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="https://mmixm.aero/features/4" schemaLocation="../features/qualification.xsd"/>
+	<xs:import namespace="https://mmixm.aero/features/4" schemaLocation="../features/asset.xsd"/>
+	<xs:include schemaLocation="datatype.xsd"/>
+	<xs:element name="Message" type="mb:Message">
+		<xs:annotation>
+			<xs:documentation>The Message element is an entry point to the MMIXM model.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MessageCollection" type="mb:MessageCollection">
+		<xs:annotation>
+			<xs:documentation>The MessageCollection element is an entry point to the MMIXM model.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="Message">
+		<xs:annotation>
+			<xs:documentation>Complex type used to encode message-related parameters (e.g., message time stamp, message id, etc.).</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="mx:Asset" minOccurs="0" maxOccurs="1"/>
+			<xs:element ref="mx:Qualification" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="id" use="optional" type="mb:String50Type">
+			<xs:annotation>
+				<xs:documentation>Unique ID associated with the message.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="messageType" use="optional" type="mb:String50Type">
+			<xs:annotation>
+				<xs:documentation>Type of message.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="timestamp" use="optional" type="xs:dateTime">
+			<xs:annotation>
+				<xs:documentation>Date and time the message was sent.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="trigger" use="optional" type="mb:String50Type">
+			<xs:annotation>
+				<xs:documentation>The event that caused the creation of the message.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="MessageCollection">
+		<xs:annotation>
+			<xs:documentation>Complex type allowing for multiple messages to be contained in a single message collection.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="mb:Message" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="collectionType" use="optional" type="mb:String50Type">
+			<xs:annotation>
+				<xs:documentation>Type of message collection.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="id" use="optional" type="mb:String50Type">
+			<xs:annotation>
+				<xs:documentation>Unique ID associated with the message.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="messageCount" use="optional" type="xs:integer">
+			<xs:annotation>
+				<xs:documentation>Total number of individual messages included in the message collection.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="timestamp" use="optional" type="xs:dateTime">
+			<xs:annotation>
+				<xs:documentation>Date and time the message was sent.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+</xs:schema>

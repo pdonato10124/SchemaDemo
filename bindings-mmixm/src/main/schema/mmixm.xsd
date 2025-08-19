@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mxm="https://mmixm.aero/4" xmlns:mb="https://mmixm.aero/base/4" xmlns:mx="https://mmixm.aero/features/4" targetNamespace="https://mmixm.aero/4" elementFormDefault="qualified" version="4.0.0">
+	<xs:annotation>
+		<xs:documentation>The Maintenance Management Information eXchange Model (MMIXM) is a data standard to support the exchange of Operations and Maintenance information between systems. The use of standardized maintenance data increases data quality and availability between stakeholders, enabling operational benefits such as increased efficiencies and situational awareness.</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="https://mmixm.aero/base/4" schemaLocation="./base/base.xsd"/>
+	<xs:import namespace="https://mmixm.aero/features/4" schemaLocation="./features/feature.xsd"/>
+</xs:schema>

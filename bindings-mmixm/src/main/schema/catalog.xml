@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!DOCTYPE catalog PUBLIC "-//OASIS//DTD Entity Resolution XML Catalog V1.0//EN" "http://www.oasis-open.org/committees/entity/release/1.0/catalog.dtd">
+
+<!--
+A complete catalog of all schemas under this directory.  Note that if more than one set of schemas
+may be mapped to a single URI, the most authoritative schema document should be mapped.  For example, 
+OGC schemas should be utilized over project-specific modifications.  
+
+New mappings may be added if they do not already exist for a URI.  Mappings are in alphabetical order 
+by authority
+-->
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="public">
+	<!-- https://www.oasis-open.org/committees/entity/spec-2001-08-06.html -->
+	<!-- 
+	The public element associates a URI reference with a public identifier.
+	
+	A public entry matches a public identifier if the normalized value of the public identifier is lexically 
+	identical to the normalized value of the publicId attribute of the entry.
+	If the value of the uri attribute is relative, it must be made absolute with respect to the base URI 
+	currently in effect. The URI reference should not include a fragment identifier.
+
+	<public publicId="http://www.w3.org/1999/xlink" uri="http://www.w3.org/1999/xlink.xsd"/>
+	-->
+
+	<public publicId="https://mmixm.aero/4" uri="https://mmixm.aero/4/mmixm.xsd"/>
+	<public publicId="https://mmixm.aero/base/4" uri="https://mmixm.aero/4/base/base.xsd"/>
+	<public publicId="https://mmixm.aero/features/4" uri="https://mmixm.aero/4/features/feature.xsd"/>
+
+	<!-- 
+	<public publicId="http://www.aixm.aero/schema/5.1" uri="http://www.aixm.aero/schema/5.1/AIXM_Features.xsd"/>
+	http://www.wxxm.aero/wxxm/2.0/wxxmCore.xsd
+	 -->
+	
+	<!--
+	The system element associates a URI reference with a system identifier.
+	
+	A system entry matches a system identifier if the normalized value (Section 6.3) of the system identifier 
+	is lexically dentical to the normalized value of the systemId attribute of the entry.
+	If the value of the uri attribute is relative, it must be made absolute with respect to the base URI currently 
+	in effect. The URI reference should not include a fragment identifier. 
+	-->
+	
+
+	<!-- TEST 
+	<system systemId="./contactInfo.xsd" uri="https://mmixm.aero/4/base/contactInfo.xsd" />
+	<system systemId="https://mmixm.aero/4/base/contactInfo.xsd" uri="base/contactInfo.xsd" />
+	<system systemId="https://mmixm.aero/4/base/contactInfo.xsd" uri="https://mmixm.aero/4/base/contactInfo.xsd" />
+	<system systemId="file:./src/main/schema/base/contactInfo.xsd" uri="https://mmixm.aero/4/base/contactInfo.xsd" />
+	-->
+	
+	<system systemId="file:/C:/projects/faa/SchemaDemo/bindings-mmixm/src/main/schema/base/contactInfo.xsd" uri="https://mmixm.aero/4/base/contactInfo.xsd" />
+	<system systemId="file:/C:/projects/faa/SchemaDemo/bindings-mmixm/src/main/schema/base/datatype.xsd" uri="https://mmixm.aero/4/base/datatype.xsd" />
+	<system systemId="file:/C:/projects/faa/SchemaDemo/bindings-mmixm/src/main/schema/base/location.xsd" uri="https://mmixm.aero/4/base/location.xsd" />
+	<system systemId="file:/C:/projects/faa/SchemaDemo/bindings-mmixm/src/main/schema/base/measures.xsd" uri="https://mmixm.aero/4/base/measures.xsd" />
+	<system systemId="file:/C:/projects/faa/SchemaDemo/bindings-mmixm/src/main/schema/base/message.xsd" uri="https://mmixm.aero/4/base/message.xsd" />
+	<system systemId="file:/C:/projects/faa/SchemaDemo/bindings-mmixm/src/main/schema/base/person.xsd" uri="https://mmixm.aero/4/base/person.xsd" />
+	
+	<system systemId="file:/C:/projects/faa/SchemaDemo/bindings-mmixm/src/main/schema/features/asset.xsd" uri="https://mmixm.aero/4/features/asset.xsd" />
+	<system systemId="file:/C:/projects/faa/SchemaDemo/bindings-mmixm/src/main/schema/features/logging.xsd" uri="https://mmixm.aero/4/features/logging.xsd" />
+	<system systemId="file:/C:/projects/faa/SchemaDemo/bindings-mmixm/src/main/schema/features/monitoring.xsd" uri="https://mmixm.aero/4/features/monitoring.xsd" />
+	<system systemId="file:/C:/projects/faa/SchemaDemo/bindings-mmixm/src/main/schema/features/qualification.xsd" uri="https://mmixm.aero/4/features/qualification.xsd" />
+	
+	<!--
+	The rewriteSystem element rewrites the beginning of a system identifier.
+	
+	A rewriteSystem entry matches a system identifier if the normalized value (Section 6.3) of the system 
+	identifier begins precisely with the normalized value of the systemIdStartString attribute of the entry. 
+	If the value of the rewritePrefix attribute is relative, it must be made absolute with respect to the 
+	base URI currently in effect. Rewriting removes the matching prefix from the supplied system identifier 
+	and replaces it with the value of the rewritePrefix attribute. If more than one rewriteSystem entry 
+	matches, the matching entry with the longest normalized systemIdStartString value is used.
+	-->
+	
+	<!--
+	<rewriteSystem systemIdStartString="https://mmixm.aero/" rewritePrefix="http://mmixm.aero/" />
+	<rewriteSystem systemIdStartString="https://mmixm.aero/4" rewritePrefix="http://mmixm.aero/4" />
+	<rewriteSystem systemIdStartString="https://mmixm.aero/base/4" rewritePrefix="http://mmixm.aero/base/4" />
+	-->
+
+	
+</catalog>

@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mx="https://mmixm.aero/features/4" xmlns:mb="https://mmixm.aero/base/4" targetNamespace="https://mmixm.aero/features/4" elementFormDefault="qualified" version="4.0.0">
+	<xs:annotation>
+		<xs:documentation>Elements describing FAA assets are located in this sub-model.  Systems, sub-systems, components, parts, personal property, real estate, interfaces and services are all considered assets.</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="https://mmixm.aero/base/4" schemaLocation="./../base/base.xsd"/>
+	<xs:include schemaLocation="logging.xsd"/>
+	<xs:include schemaLocation="monitoring.xsd"/>
+	<xs:element name="Asset" type="mx:Asset"/>
+	<xs:complexType name="AirportRunway">
+		<xs:annotation>
+			<xs:documentation>Complex type containing airport name and associated runways.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="coreAirport" type="mb:Location" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The location of the Core airport that the asset is located at, or that it supports. The field is only populated if the supported airport is part of the Core airports list, per FAA 6000.5 Facility, Service, and Equipment Profile (FSEP), Appendix B: Facility/Service Data Definitions.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="runways" type="mb:RunwayInformation" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Name of the primary and secondary runway supported by an asset.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Asset">
+		<xs:annotation>
+			<xs:documentation>Complex type containing information about an asset or group of assets.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="additionalInformation" type="mb:AdditionalInformation" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Additional information about an asset.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="assetIdentifier" type="mx:AssetIdentifier" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Collection of information and identifiers associated with an asset that could be used to uniquely identify an asset instance.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="assetName" type="mb:String150Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Common name of an asset.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cageCode" type="mb:CageCode" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The Cage Code associated with an asset.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="costCenterCode" type="mb:CostCenter" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The cost center code associated with an asset.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="description" type="mb:String255Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Description of an asset.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fsepOperationalInformation" type="mx:FsepOperationalInformation" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>FSEP information about operational assets.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="inventoryInformation" type="mx:InventoryInformation" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Inventory information associated with an Asset</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="location" type="mb:Location" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The location an asset is associated with.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="loggingEvent" type="mx:LoggingEvent" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Logging event associated with a specific asset.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="monitoringEvent" type="mx:MonitoringEvent" minOccurs="0" maxOccurs="255">
+				<xs:annotation>
+					<xs:documentation>Monitoring event associated with a specific asset.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="responsibleOrganization" type="mb:Organization" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Organization responsible for the asset.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="composedOf" type="mx:AssetRelationship" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Relationship reporting down in the asset hierarchy (parent to child).  composedOf articulates an asset being  composed or made up of another asset (or group of assets).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="memberOf" type="mx:AssetRelationship" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Relationship reporting up in the asset hierarchy (child to parent).  memberOf articulates an asset being a member of another asset or asset group.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="interfacesWith" type="mx:AssetRelationship" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Relationship representing assets that are connected to one another.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rmlsAdjacentTo" type="mx:AssetRelationship" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Facilities (when out of service) that may prohibit the removal of service of other facilities. These are generally radar and beacon facilities and VORs. (JO 6040.15G)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rmlsColocated" type="mx:AssetRelationship" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Equipment/System physically located together (generally using the same power source). (JO 6040.15G)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rmlsRelatedTo" type="mx:AssetRelationship" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>A facility/service not directly provided by a facility/equipment which will require a
+reportable interrupt due to the interruption of another facility/service (cannot be both associated and
+related). (JO 6040.15G)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rmlsAssociatedWith" type="mx:AssetRelationship" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>A service directly provided by a facility/equipment. (JO 6040.15G )</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="assetType" use="optional" type="mb:AssetType">
+			<xs:annotation>
+				<xs:documentation>Enumerated list of asset categories.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="AssetIdentifier">
+		<xs:annotation>
+			<xs:documentation>Collection of information and identifiers associated with an asset that could be used to uniquely identify an asset instance.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="faaIdentifier" type="mx:FaaIdentifier" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>FAA asset identification information.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fsepIdentifier" type="mx:FsepIdentifier" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>FSEP asset identification information.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="globalIdentifier" type="mx:GlobalIdentifier" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Global asset identifiers.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="manufacturerIdentifier" type="mx:ManufacturerIdentifier" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Manufacturer identification information.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rmlsLuId" type="mb:RmlsHexId" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Logical Unit Identification (LUID) - Remote Monitoring System (RMS) assigned address to operational parameters, per JO 6000.15.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AssetRelationship">
+		<xs:annotation>
+			<xs:documentation>The complex type that identifies the relationship between two assets.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="asset" type="mx:Asset" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Asset or group of assets that has a relationship with an asset or group of assets.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AssetStatusHistory">
+		<xs:annotation>
+			<xs:documentation>Complex type containing FSEP status code and transactional dates related to an asset (e.g., commission date, swap-out date). </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="assetStatus" type="mb:CodeDescriptionType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This field denotes the status of the operational asset, as described in Order 6000.5 Facility, Service, and Equipment Profile (FSEP). The status has two parts, a status code and a corresponding description.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="assetStatusDateTime" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>An eight-character numeric field that contains the month, day, and year the entity received its latest status prior to commissioning.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="commissionedDateTime" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The date the operational asset was commissioned.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="decommissionedDateTime" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The date the operational asset was decommissioned.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="precommissionedDateTime" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The date the operational asset was pre commissioned.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="recChgDateTime" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Date and time the record was changed.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="swapoutDateTime" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The date when equipment change or replacement to a commissioned facility occurs. A swapout is when a FSEP fac code or class is changed.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AssociatedLocations">
+		<xs:annotation>
+			<xs:documentation>Location information associated with the asset, such as location identifiers for associated remote command and control site or service delivery point.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="airTrafficLocation" type="mb:Location" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Location responsible for the Air Traffic associated with the asset.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="buildingLocation" type="mb:Location" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Identifies the building where the assets are located or are supporting, per FAA 6000.5 Facility, Service, and Equipment Profile (FSEP), Appendix B: Facility/Service Data Definitions.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="commandLocation" type="mb:Location" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Location that hosts the hardware which is responsible for sending remote commands to the asset.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="controlLocation" type="mb:Location" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This location exercises control over the asset, such as initiating a remote reset, per FSEP Desk Guide.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="monitorLocation" type="mb:Location" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Location that is responsible for reporting, coordinating, and/or monitoring the asset, such as the Security Operations Center (SOC), Control Centers, or Headquarters-based organizations, per FAA 6000.5 Facility, Service, and Equipment Profile (FSEP), Appendix B: Facility/Service Data Definitions.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="previousRegionCode" type="mb:CodeRegionType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The last NAS region associated with the operational asset, prior to the current region, if the region has changed.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="primaryLocation" type="mb:Location" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Location of the primary maintenance office associated with the asset, per FAA 6000.5 Facility, Service, and Equipment Profile (FSEP), Appendix B: Facility/Service Data Definitions. Supplementary information may include travel time to the asset and number of trips.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="regionCode" type="mb:CodeRegionType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The code for the NAS region associated with the operational asset.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="remoteLocation" type="mb:Location" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The remote location associated with the asset, per the FSEP Desk Guide.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serviceDeliveryPointLocation" type="mb:Location" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Location to which Air Traffic Services are delivered, per FAA 6000.5 Facility, Service, and Equipment Profile (FSEP), Appendix B: Facility/Service Data Definitions.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FaaIdentifier">
+		<xs:annotation>
+			<xs:documentation>Complex type grouping of asset identifiers assigned by the FAA.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="faaPartNumber" type="mb:String50Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Part number assigned by the FAA.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="facaNumber" type="mb:String50Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The FA/CA number (Federal Aviation/Civil Aviation Number) is an alphanumeric reference designator that individually differentiates each Equipment type from others with the same short name.   An example of the correct FA/CA# format is FA-10065. The manufacturer's model number is used when an FA/CA is not available.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FsepCode">
+		<xs:annotation>
+			<xs:documentation>Complex type containing the FSEP code, class code, and system code.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="capabilityCode" type="mb:DomainCodeType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>As defined in FSEP Order 6000.5E, the first position of the FIC is a one position alpha code that classifies the entity by its primary capability. [Absence of a letter signifies an outdated code.] A: Automation, C: Communication, I: Infrastructure, M: Mission Support, N: Navigation/Landing, S: Surveillance, W: Weather.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fsepClass" type="mb:CodeDescriptionType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The container for the alphanumeric code further identifying equipment, as defined in the FSEP Desk Guide, and the associated description, per Order 6000.5 Facility, Service, and Equipment Profile (FSEP).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fsepSystemCode" type="mb:FsepSystemCodeType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This code is a one-character numeric code that identifies the domain of the system within the NAS. This is also the first character numeric in the Facility Code/Class in the FSEP Data Dictionary (6000.5E, Appendix B). This is also the field FAC_CODE_SYSID in the RMLS/FSEP database. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="powerCode" type="mb:String1Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The power code indicates the chargeable power source for the primary asset, per Order 6000.5 Facility, Service, and Equipment Profile (FSEP).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="responsibilityCode" type="mb:CodeResponsibilityType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The entity responsible for maintaining the asset.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="restorationPeriod" type="mb:CodeDescriptionType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>A code representing the allowable restoration response time for the asset, per Order 6000.5 Facility, Service, and Equipment Profile (FSEP).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FsepIdentifier">
+		<xs:annotation>
+			<xs:documentation>Complex type containing the fsepFac, fsepFic, and fsepLocId.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="fsepFac" type="mb:FsepFacType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The five- character alphanumeric field contains the type of entity in FSEP, including services. This is the field FAC_TYPE in the RMLS/FSEP database. Sample values include the following.
+ASR: Airport Surveillance Radar
+ATIS: Automatic Terminal Information System
+ATCT: Airport Traffic Control Tower
+BUECS: Backup Emergency Communications Service
+CFAD: Composite Flight Data Processing Service
+EADS: En Route Automation Display System</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fsepFic" type="mb:FsepFicType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The Facility Identification Code (FIC) provides the make, model, and class for identifying equipment in FSEP. The make and model codes make up the four-character FIC Code. The FIC Code is mandatory in all non-service records. The FIC Codes established prior to the release of older versions of Order 6000.5 are still valid and remain in the FSEP Desk guides until the equipment is retired from the NAS. Not all legacy codes are changed to the new FIC Code. This is the field FAC_CODE_FACILITY in the RMLS/FSEP database. Sample values include the following.
+ASR FICs: 53AC,  53AG, SC00
+GBAS FICs: NWA0
+TBFM FICs: 61UB, AE00</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fsepLocId" type="mb:FsepLocIdType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This three or four character field contains the city and state where the equipment is physically located. Location identifiers assignment process is detailed in Order 6000.5E, Chapter 3, Section 3.1 Location Identifier Process. This is the field FAC_IDENT in the RMLS/FSEP database but which is typically referred to as LOC_ID. There are three sources for a LOC_ID:
+
+	1. A value from the IDENT column in the 7350.9.
+	2. A value from the IDENT column in the 7350.9 to which a single character suffix is added. The suffix is added when there is more than one instance of the same FSEP Facility at a specific location. An example is the Precision Approach Path Indicators (PAPI) at Boston Logan Airport. There are 4 of these, and each has a different LOC_ID derived from BOS, the identifier for Logan. These are BOS, BOSA, BOSB and BOSC.
+	3. A made up value starting with a Q. These are known as Q Identifiers and are created when there is no established identifier within 20 miles of the location of the FSEP Facility.
+
+Sample values include I90, DAL, TPA, CXYA, DCAP, PUB, ZDCC, DFWA.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fsepReferenceId" type="xs:integer" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>An internal asset record identifier used by FSEP.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="previousFsepFac" type="mb:FsepFacType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The FsepFac previously associated with this asset, per Order 6000.5 Facility, Service, and Equipment Profile (FSEP).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="previousFsepLocId" type="mb:FsepLocIdType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The FSEP Location Ident that was previously in use by the asset, per Order 6000.5 Facility, Service, and Equipment Profile (FSEP).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FsepOperationalInformation">
+		<xs:annotation>
+			<xs:documentation>Complex type containing FSEP information about operational assets.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="airportRunway" type="mx:AirportRunway" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Airport name and associated runways related to an asset.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="assetStatusHistory" type="mx:AssetStatusHistory" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>FSEP status code and transactional dates related to an asset (e.g., commission date, swap-out date).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="associatedLocations" type="mx:AssociatedLocations" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Location information associated with the asset, such as location identifiers for associated remote command and control site or service delivery point.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="frequencyCount" type="xs:integer" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This field contains a count of the number of frequencies associated with the asset, per Order 6000.5 Facility, Service, and Equipment Profile (FSEP). Each Ultra High Frequency or Very High Frequency counts as 1 unit.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fsepCode" type="mx:FsepCode" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>FSEP code, class code, and system code.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="numberOfUnits" type="xs:integer" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Normally each facility contains a single unit and the number 1 is used.  The FSEP Desk guide captures facilities qualifying for multiple unit status. This field is used for generic FSEP Facilities such as storage tanks, mobile generators, chillers, etc. When the identify of each FSEP Facility at one site is critical (i.e. ILS), individual entries are made for each unit by appending a character to the FAC_IDENT field (also known as LOC_ID).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="phoneContact" type="mb:TelephoneContact" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The telephone contact associated with the operational asset.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="recordProvenance" type="mb:Provenance" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Date and time of the approved effort/task/asset.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="regionalInformation" type="mx:RegionalInformationType" minOccurs="0" maxOccurs="3">
+				<xs:annotation>
+					<xs:documentation>Container for regional information, defined locally, per Order 6000.5 Facility, Service, and Equipment Profile (FSEP).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="revisionId" type="xs:integer" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Facility Revision ID.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="staffedHours" type="mb:CodeDescriptionType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This three-character numeric field contains the hours that a facility is manned. The first two characters indicate the staffing hours per day (from 00 to 24) for the facility by Tech Ops field personnel and the third character indicates the number of days in a week (from 0 to 7). </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tier" type="mb:CodeTierType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Provides a means for Tech Ops to monitor store credits. Restore equipment during a government shutdown.
+[6000.1 FSEP Pocket Reference Guide]</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GlobalIdentifier">
+		<xs:annotation>
+			<xs:documentation>Complex type containing elements associated with global asset identifiers.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="giai" type="mb:String50Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The Global Individual Asset Identifier (GIAI) is part of the GS1 system of standards. Its a simple tool to identify an asset by type and can identify assets uniquely where required, including a company prefix followed by an asset identifier of up to 30 characters.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="InventoryInformation">
+		<xs:annotation>
+			<xs:documentation>Complex type containing asset inventory information.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="assetInventoryStatus" type="mb:CodeManufacturedAssetStatusType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The status of an inventoried asset. This status represents whether the assets is received and available, unavailable, in use, or in transit.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="condition" type="mb:CodeConditionType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The condition of an inventoried asset (e.g., serviceable, repairable, etc.).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lastInventoriedDateTime" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The date and time when the asset was last inventoried.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lastUpdatedDateTime" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The date and time when the asset was last updated.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ManufacturerIdentifier">
+		<xs:annotation>
+			<xs:documentation>Complex type containing asset identifiers assigned by manufacturers.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="manufacturerName" type="mb:String50Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>A producer of manufactured assets: parts, equipment, and/or systems.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="manufacturerPartNumber" type="mb:String50Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Unique identifier for a part manufactured by a specific manufacturer.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nationalStockNumber" type="mb:String50Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The NSN is a 13-digit code recognized by the US government, NATO and other countries of the form: 6240-00-357-7976. The first four digits are the Federal Supply Class (FSC), used to group like items. The next two are the Country of Origin code, and the remaining are sequentially assigned.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="revisionNumber" type="mb:String50Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The revision number for this asset, such as the software revision level/number as noted in the modification document, per TI 6030.6 Simplified Automated Logging (SAL) User's Manual. (e.g.  1, 2, etc.)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serialNumber" type="mb:String50Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Serial number assigned by the manufacturer.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RegionalInformationType">
+		<xs:annotation>
+			<xs:documentation>Complex type containing information defined regionally. Each element of information should include a numeric identifier.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="mb:String15Type">
+				<xs:attribute name="id" use="optional" type="mb:String1Type">
+					<xs:annotation>
+						<xs:documentation>Numerical identifier distinguishing between regional information fields. The regional information will be identified as "1", "2", or "3", per Order 6000.5 Facility, Service, and Equipment Profile (FSEP).</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+</xs:schema>

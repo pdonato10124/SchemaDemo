@@ -1,0 +1,864 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mb="https://mmixm.aero/base/4" targetNamespace="https://mmixm.aero/base/4" elementFormDefault="qualified" version="4.0.0">
+	<xs:annotation>
+		<xs:documentation>The schema in which measurement elements exist.</xs:documentation>
+	</xs:annotation>
+	<xs:simpleType name="UomAngle">
+		<xs:annotation>
+			<xs:documentation>Unit of measure for angle</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DEG">
+				<xs:annotation>
+					<xs:documentation>Degrees</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UomAngularRate">
+		<xs:annotation>
+			<xs:documentation>Unit of measure for angular rate</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DEG_SEC">
+				<xs:annotation>
+					<xs:documentation>Degrees per second</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="RPM">
+				<xs:annotation>
+					<xs:documentation>Revolutions per minute</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UomComputerInformation">
+		<xs:annotation>
+			<xs:documentation>Unit of measure for data storage</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="KB">
+				<xs:annotation>
+					<xs:documentation>Kilobyte</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MB">
+				<xs:annotation>
+					<xs:documentation>Megabyte</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="GB">
+				<xs:annotation>
+					<xs:documentation>Gigabyte</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TB">
+				<xs:annotation>
+					<xs:documentation>Terabyte</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UomComputerInformationRate">
+		<xs:annotation>
+			<xs:documentation>Unit of measure for information rate</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="KB_SEC">
+				<xs:annotation>
+					<xs:documentation>Kilobyte per second</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MB_SEC">
+				<xs:annotation>
+					<xs:documentation>Megabyte per second</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="GB_SEC">
+				<xs:annotation>
+					<xs:documentation>Gigabyte per second</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TB_SEC">
+				<xs:annotation>
+					<xs:documentation>Terabyte per second</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UomDistance">
+		<xs:annotation>
+			<xs:documentation>Unit of measure for distance</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CM">
+				<xs:annotation>
+					<xs:documentation>Centimeter</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="FT">
+				<xs:annotation>
+					<xs:documentation>Feet</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="IN">
+				<xs:annotation>
+					<xs:documentation>Inches</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="KM">
+				<xs:annotation>
+					<xs:documentation>Kilometers</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="M">
+				<xs:annotation>
+					<xs:documentation>Meters</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MI">
+				<xs:annotation>
+					<xs:documentation>Miles</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MM">
+				<xs:annotation>
+					<xs:documentation>Millimeter</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NM">
+				<xs:annotation>
+					<xs:documentation>Nautical Miles</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UomElectricCurrent">
+		<xs:annotation>
+			<xs:documentation>A unit of measure for electric current</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="AMP_AC">
+				<xs:annotation>
+					<xs:documentation>Amperes, alternating current</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MAMP_AC">
+				<xs:annotation>
+					<xs:documentation>Milliamps, alternating current</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AMP_DC">
+				<xs:annotation>
+					<xs:documentation>Amperes, direct current</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MAMP_DC">
+				<xs:annotation>
+					<xs:documentation>Milliamps, direct current</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UomElectricPotential">
+		<xs:annotation>
+			<xs:documentation>A unit of measure describing an electric potential difference or electromotive force</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="MVAC">
+				<xs:annotation>
+					<xs:documentation>Millivolts, alternating current</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MVDC">
+				<xs:annotation>
+					<xs:documentation>Millivolts, direct current</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="VAC">
+				<xs:annotation>
+					<xs:documentation>Volts, alternating current</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="VDC">
+				<xs:annotation>
+					<xs:documentation>Volts, direct current.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UomEnergy">
+		<xs:annotation>
+			<xs:documentation>Unit of measure for energy</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="KWH">
+				<xs:annotation>
+					<xs:documentation>Kilowatt hours</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="J">
+				<xs:annotation>
+					<xs:documentation>Joules</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UomFlightLevel">
+		<xs:annotation>
+			<xs:documentation>Unit of measure for flight level</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="FL">
+				<xs:annotation>
+					<xs:documentation>Flight Level in Hundreds of Feet</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SM">
+				<xs:annotation>
+					<xs:documentation>Standard meters (tens of meters)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UomFlowRate">
+		<xs:annotation>
+			<xs:documentation>Unit of measure for flow rate</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CFT_MIN">
+				<xs:annotation>
+					<xs:documentation>Cubic feet per minute</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="GAL_MIN">
+				<xs:annotation>
+					<xs:documentation>US gallon per minute</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="L_MIN">
+				<xs:annotation>
+					<xs:documentation>Liter per minute</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UomFrequency">
+		<xs:annotation>
+			<xs:documentation>A unit of measure for frequency</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="GHZ">
+				<xs:annotation>
+					<xs:documentation>Gigahertz</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="HZ">
+				<xs:annotation>
+					<xs:documentation>Hertz</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="KHZ">
+				<xs:annotation>
+					<xs:documentation>Kilohertz</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MHZ">
+				<xs:annotation>
+					<xs:documentation>Megahertz</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UomLightIntensity">
+		<xs:annotation>
+			<xs:documentation>Unit of measure for light intensity</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CD">
+				<xs:annotation>
+					<xs:documentation>Candelas</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LUMEN">
+				<xs:annotation>
+					<xs:documentation>Unit of luminous flux</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UomPercentage">
+		<xs:annotation>
+			<xs:documentation>A unit of measure for a ratio, expressed as a fraction of 100</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="PCT">
+				<xs:annotation>
+					<xs:documentation>Percent</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UomPower">
+		<xs:annotation>
+			<xs:documentation>Unit of measure for power</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="KW">
+				<xs:annotation>
+					<xs:documentation>Kilowatt</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="W">
+				<xs:annotation>
+					<xs:documentation>Watt</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UomPressure">
+		<xs:annotation>
+			<xs:documentation>Unit of measure for pressure</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="BAR">
+				<xs:annotation>
+					<xs:documentation>Bar (=100000 Pascals (Pa))</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MPA">
+				<xs:annotation>
+					<xs:documentation>Megapascal</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ATM">
+				<xs:annotation>
+					<xs:documentation>Standard Atmosphere</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MBAR">
+				<xs:annotation>
+					<xs:documentation>Millibar</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PA">
+				<xs:annotation>
+					<xs:documentation>Pascal</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="HPA">
+				<xs:annotation>
+					<xs:documentation>Hectopascal</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="INHG">
+				<xs:annotation>
+					<xs:documentation>Inches of mercury</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TORR">
+				<xs:annotation>
+					<xs:documentation>Torr (= 1/760 ATM)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PSI">
+				<xs:annotation>
+					<xs:documentation>Pounds per square inch</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UomSignalStrength">
+		<xs:annotation>
+			<xs:documentation>A unit of measure for sound.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DB">
+				<xs:annotation>
+					<xs:documentation>Decibel</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UomSpeed">
+		<xs:annotation>
+			<xs:documentation>Unit of measure for speed</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="FT_MIN">
+				<xs:annotation>
+					<xs:documentation>Feet per minute</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="FT_SEC">
+				<xs:annotation>
+					<xs:documentation>Feet per second</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="KM_H">
+				<xs:annotation>
+					<xs:documentation>Kilometer per hour</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="KT">
+				<xs:annotation>
+					<xs:documentation>Knots</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="M_MIN">
+				<xs:annotation>
+					<xs:documentation>Meters per minute</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MACH">
+				<xs:annotation>
+					<xs:documentation>Mach number</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MPH">
+				<xs:annotation>
+					<xs:documentation>Miles (statute) per hour</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UomTemperature">
+		<xs:annotation>
+			<xs:documentation>A unit of measure for thermodynamic temperature</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="C">
+				<xs:annotation>
+					<xs:documentation>Degrees Celsius</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="F">
+				<xs:annotation>
+					<xs:documentation>Degrees Fahrenheit</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="K">
+				<xs:annotation>
+					<xs:documentation>Kelvin</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="R">
+				<xs:annotation>
+					<xs:documentation>Rankine</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UomTime">
+		<xs:annotation>
+			<xs:documentation>Unit of measure for time</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DATETIME">
+				<xs:annotation>
+					<xs:documentation>Specific date and time, GMT</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DATETIME_FORMAT">
+				<xs:annotation>
+					<xs:documentation>Format of DATETIME</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DURATION">
+				<xs:annotation>
+					<xs:documentation>Time between two events</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DURATION_FORMAT">
+				<xs:annotation>
+					<xs:documentation>Format of DURATION</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UomVolume">
+		<xs:annotation>
+			<xs:documentation>Unit of measure for volume</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CFT">
+				<xs:annotation>
+					<xs:documentation>Cubic feet</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="GAL">
+				<xs:annotation>
+					<xs:documentation>US Gallon</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="L">
+				<xs:annotation>
+					<xs:documentation>Liter</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UomWeight">
+		<xs:annotation>
+			<xs:documentation>Unit of measure for weight</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="G">
+				<xs:annotation>
+					<xs:documentation>Grams</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="KG">
+				<xs:annotation>
+					<xs:documentation>Kilograms</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LB">
+				<xs:annotation>
+					<xs:documentation>Pounds</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OZ">
+				<xs:annotation>
+					<xs:documentation>Ounces</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="T">
+				<xs:annotation>
+					<xs:documentation>Metric ton/tonne</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TON">
+				<xs:annotation>
+					<xs:documentation>Imperial ton</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="Angle">
+		<xs:annotation>
+			<xs:documentation>The amount of rotation needed to bring one line or plane into coincidence with another, generally measured in radians or degrees. [ISO 19103, chapter 6.5.7.9]</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="mb:Measure">
+				<xs:sequence/>
+				<xs:attribute name="uom" use="optional" type="mb:UomAngle">
+					<xs:annotation>
+						<xs:documentation>Unit of measure.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="AngularRate">
+		<xs:annotation>
+			<xs:documentation>The change of angle over time.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="mb:Measure">
+				<xs:sequence/>
+				<xs:attribute name="uom" use="optional" type="mb:UomAngularRate">
+					<xs:annotation>
+						<xs:documentation>Unit of measure.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ComputerInformation">
+		<xs:annotation>
+			<xs:documentation>Measurement of data storage, the most elemental of which is a single bit.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="mb:Measure">
+				<xs:sequence/>
+				<xs:attribute name="uom" use="optional" type="mb:UomComputerInformation">
+					<xs:annotation>
+						<xs:documentation>Unit of measure.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ComputerInformationRate">
+		<xs:annotation>
+			<xs:documentation>Amount of data passed from system to system over time.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="mb:Measure">
+				<xs:sequence/>
+				<xs:attribute name="uom" use="optional" type="mb:UomComputerInformationRate">
+					<xs:annotation>
+						<xs:documentation>Unit of measure.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Distance">
+		<xs:annotation>
+			<xs:documentation>A type for returning the separation between two points. [ISO 19103, chapter 6.5.7.7]</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="mb:Measure">
+				<xs:sequence/>
+				<xs:attribute name="uom" use="optional" type="mb:UomDistance">
+					<xs:annotation>
+						<xs:documentation>Unit of measure.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ElectricCurrent">
+		<xs:annotation>
+			<xs:documentation>A measure of electric current</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="mb:Measure">
+				<xs:sequence/>
+				<xs:attribute name="uom" use="optional" type="mb:UomElectricCurrent">
+					<xs:annotation>
+						<xs:documentation>Unit of measure.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ElectricPotential">
+		<xs:annotation>
+			<xs:documentation>A measure of electric potential difference or electromotive force</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="mb:Measure">
+				<xs:sequence/>
+				<xs:attribute name="uom" use="optional" type="mb:UomElectricPotential">
+					<xs:annotation>
+						<xs:documentation>Unit of measure.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Energy">
+		<xs:annotation>
+			<xs:documentation>The capacity or power to do work, such as the capacity to move an object (of a given mass) by the application of force. Energy can exist in a variety of forms, such as electrical, mechanical, chemical, thermal, or nuclear, and can be transformed from one form to another.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="mb:Measure">
+				<xs:sequence/>
+				<xs:attribute name="uom" use="optional" type="mb:UomEnergy">
+					<xs:annotation>
+						<xs:documentation>Unit of measure.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="FlightLevel">
+		<xs:annotation>
+			<xs:documentation>Measurement of altitude, typically of an aircraft.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="mb:Measure">
+				<xs:sequence/>
+				<xs:attribute name="uom" use="optional" type="mb:UomFlightLevel">
+					<xs:annotation>
+						<xs:documentation>Unit of measure.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="FlowRate">
+		<xs:annotation>
+			<xs:documentation>Measurement of the volume of a liquid passing through a plane over time.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="mb:Measure">
+				<xs:sequence/>
+				<xs:attribute name="uom" use="optional" type="mb:UomFlowRate">
+					<xs:annotation>
+						<xs:documentation>Unit of measure.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Frequency">
+		<xs:annotation>
+			<xs:documentation>A measure of frequency (units per second)</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="mb:Measure">
+				<xs:sequence/>
+				<xs:attribute name="uom" use="optional" type="mb:UomFrequency">
+					<xs:annotation>
+						<xs:documentation>Unit of measure.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="LightIntensity">
+		<xs:annotation>
+			<xs:documentation>Measurement of the amount of light.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="mb:Measure">
+				<xs:sequence/>
+				<xs:attribute name="uom" use="optional" type="mb:UomLightIntensity">
+					<xs:annotation>
+						<xs:documentation>Unit of measure.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Measure">
+		<xs:annotation>
+			<xs:documentation>Top-level class of all measures.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence/>
+		<xs:attribute name="value" use="optional" type="xs:double">
+			<xs:annotation>
+				<xs:documentation>The actual measurement.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="Percentage">
+		<xs:annotation>
+			<xs:documentation>A measure of a ratio expressed as a fraction of 100</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="mb:Measure">
+				<xs:sequence/>
+				<xs:attribute name="uom" use="optional" type="mb:UomPercentage">
+					<xs:annotation>
+						<xs:documentation>Unit of measure.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Power">
+		<xs:annotation>
+			<xs:documentation>A measure of power or radiant flux</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="mb:Measure">
+				<xs:sequence/>
+				<xs:attribute name="uom" use="optional" type="mb:UomPower">
+					<xs:annotation>
+						<xs:documentation>Unit of measure.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Pressure">
+		<xs:annotation>
+			<xs:documentation>The force exerted per unit area.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="mb:Measure">
+				<xs:sequence/>
+				<xs:attribute name="uom" use="optional" type="mb:UomPressure">
+					<xs:annotation>
+						<xs:documentation>Unit of measure.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="SignalStrength">
+		<xs:annotation>
+			<xs:documentation>A measure of signal strength</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="mb:Measure">
+				<xs:sequence/>
+				<xs:attribute name="uom" use="optional" type="mb:UomSignalStrength">
+					<xs:annotation>
+						<xs:documentation>Unit of measure.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Speed">
+		<xs:annotation>
+			<xs:documentation>Distance traveled over time.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="mb:Measure">
+				<xs:sequence/>
+				<xs:attribute name="uom" use="optional" type="mb:UomSpeed">
+					<xs:annotation>
+						<xs:documentation>Unit of measure.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Temperature">
+		<xs:annotation>
+			<xs:documentation>A measure of thermodynamic temperature</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="mb:Measure">
+				<xs:sequence/>
+				<xs:attribute name="uom" use="optional" type="mb:UomTemperature">
+					<xs:annotation>
+						<xs:documentation>Unit of measure.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Time">
+		<xs:annotation>
+			<xs:documentation>The indefinite continued progress of existence and events.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="mb:Measure">
+				<xs:sequence/>
+				<xs:attribute name="uom" use="optional" type="mb:UomTime">
+					<xs:annotation>
+						<xs:documentation>Unit of measure.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Volume">
+		<xs:annotation>
+			<xs:documentation>The measure of the physical space of any 3-D geometric object. [ISO 19103, chapter 6.5.7.15]</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="mb:Measure">
+				<xs:sequence/>
+				<xs:attribute name="uom" use="optional" type="mb:UomVolume">
+					<xs:annotation>
+						<xs:documentation>Unit of measure.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Weight">
+		<xs:annotation>
+			<xs:documentation>A body's relative mass or the quantity of matter contained by it, as measured by a downward force</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="mb:Measure">
+				<xs:sequence/>
+				<xs:attribute name="uom" use="optional" type="mb:UomWeight">
+					<xs:annotation>
+						<xs:documentation>Unit of measure.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

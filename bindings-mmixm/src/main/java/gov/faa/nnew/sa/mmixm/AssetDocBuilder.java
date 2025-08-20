@@ -1,30 +1,33 @@
 package gov.faa.nnew.sa.mmixm;
 
+import java.math.BigInteger;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TimeZone;
 
 import org.apache.xmlbeans.XmlObject;
 import org.apache.xmlbeans.XmlOptions;
 
 import aero.mmixm.base.x4.AdditionalInformation;
+import aero.mmixm.base.x4.CodeDescriptionType;
 import aero.mmixm.base.x4.CodeFaaLocationType;
 import aero.mmixm.base.x4.CodeFaaLocationType.Enum;
+import aero.mmixm.base.x4.CodeLogStatusDescriptionType;
 import aero.mmixm.base.x4.FaaLocation;
 import aero.mmixm.base.x4.FaaLocationTypeChoice;
-import aero.mmixm.base.x4.Frequency;
 import aero.mmixm.base.x4.Location;
-import aero.mmixm.base.x4.MonitoringType;
 import aero.mmixm.base.x4.NameValuePair;
-import aero.mmixm.base.x4.UomFrequency;
+import aero.mmixm.base.x4.PhysicalAddress;
+import aero.mmixm.base.x4.PostalAddress;
 import aero.mmixm.features.x4.Asset;
 import aero.mmixm.features.x4.AssetDocument;
 import aero.mmixm.features.x4.AssetIdentifier;
-import aero.mmixm.features.x4.Configuration;
 import aero.mmixm.features.x4.FaaIdentifier;
 import aero.mmixm.features.x4.FsepIdentifier;
-import aero.mmixm.features.x4.MonitoringEvent;
-import aero.mmixm.features.x4.Parameter;
-import aero.mmixm.features.x4.ParameterState;
+import aero.mmixm.features.x4.LoggingCode;
+import aero.mmixm.features.x4.LoggingEvent;
+import aero.mmixm.features.x4.MaintenanceActivity;
 import gov.faa.nnew.sa.XmlbeansUtil;
 
 /**
@@ -108,6 +111,7 @@ public interface AssetDocBuilder {
 	 */
 	public AssetDocBuilder setFsepLocId(String fsepLocId);
 	
+	public AssetDocBuilder setPostalAddress(String city, String state);
 	
 	public AssetDocument build();
 	
@@ -142,6 +146,7 @@ public interface AssetDocBuilder {
 		BackupEmergencyCommunicationsService("BUECS"),
 		CompositeFlightDataProcessingService("CFAD"),
 		EnRouteAutomationDisplaySystem("EADS"),
+		CPDS("CPDS"),
 		;
 		private String code;
 		private FsepFac(String code) {
@@ -199,7 +204,10 @@ public interface AssetDocBuilder {
 				private FaaLocationType faaLocationType = FaaLocationType.NONE;
 				private String faaLocationValue = "";
 				
-				Map<String,String> addInfoMap = new HashMap<>();
+				private Map<String,String> addInfoMap = new HashMap<>();
+				
+				private String city = "";
+				private String state = "";
 				
 				
 				@Override
@@ -246,6 +254,15 @@ public interface AssetDocBuilder {
 				}
 
 				@Override
+				public AssetDocBuilder setPostalAddress(String city, String state) {
+					this.city = city;
+					this.state = state;
+					return this;
+				}
+
+				
+				
+				@Override
 				public AssetDocument build() {
 					AssetDocument assetDoc = AssetDocument.Factory.newInstance(xmlOpts);
 					Asset asset = assetDoc.addNewAsset();
@@ -287,10 +304,19 @@ public interface AssetDocBuilder {
 						type.setLocationType(faaLocationType.getType());
 						faaLocation.setIdentifier(faaLocationValue);
 					}
+					else if(!state.isBlank() && !city.isBlank()){
+						Location location = asset.addNewLocation();
+						PhysicalAddress physicalAddress = location.addNewPhysicalAddress();
+						PostalAddress postalAddress = physicalAddress.addNewAddress();
+						postalAddress.setCity(city);
+						postalAddress.setAdministrativeArea(state);
+					}
+					
 					
 					
 					// - - - - - - - - - - - - - - - - - - - -
 					// TODO 
+					
 //					CageCode cageCode = asset.addNewCageCode();
 //					cageCode.setCageCode("c0123");
 //					
@@ -309,22 +335,41 @@ public interface AssetDocBuilder {
 //					inventoryInformation.setCondition(CodeConditionType.SURVEY);
 //					
 //					
-//					LoggingEvent loggingEvent = asset.addNewLoggingEvent();
-//					LoggingCode loggingCode = loggingEvent.addNewLoggingCode();
-//					CodeDescriptionType category = loggingCode.addNewCategory();
-//					category.setCode("LC0");
+					
+					Calendar now = Calendar.getInstance(TimeZone.getTimeZone("zulu"));
+					
+					LoggingEvent loggingEvent = asset.addNewLoggingEvent();
+					loggingEvent.setStatus(CodeLogStatusDescriptionType.CLOSED);
+					loggingEvent.setLogId(BigInteger.valueOf(885903724));
+					loggingEvent.setCreatedDateTime(now);
+					loggingEvent.setModifiedDateTime(now);
+					loggingEvent.setComment("Return to Service .Battery System 4DCA Quarterly PM completed. Contacted SOC (CMO) .Ready to RTS.");
+					
+					MaintenanceActivity maintenanceActivity = loggingEvent.addNewMaintenanceActivity();
+					maintenanceActivity.setActivityStartDateTime(now);
+					maintenanceActivity.setActivityEndDateTime(now);
+					
+					LoggingCode loggingCode = loggingEvent.addNewLoggingCode();
+					CodeDescriptionType maintenanceAction = loggingCode.addNewMaintenanceAction();
+					maintenanceAction.setCode("null");
+					//CodeDescriptionType category = loggingCode.addNewCategory();
+					//category.setCode("LC0");
 
-					MonitoringEvent monitoringEvent = asset.addNewMonitoringEvent();
-					Configuration configuration = monitoringEvent.addNewConfiguration();
-					configuration.setMonitored(MonitoringType.MONITORED);
 					
-					Parameter parameter = monitoringEvent.addNewParameter();
-					ParameterState parameterState = parameter.addNewParameterState();
 					
-					Frequency f = Frequency.Factory.newInstance(xmlOpts);
-					f.setValue(600.0);
-					f.setUom(UomFrequency.GHZ);
-					parameterState.setCurrentValue(f);
+					
+					
+//					MonitoringEvent monitoringEvent = asset.addNewMonitoringEvent();
+//					Configuration configuration = monitoringEvent.addNewConfiguration();
+//					configuration.setMonitored(MonitoringType.MONITORED);
+//					
+//					Parameter parameter = monitoringEvent.addNewParameter();
+//					ParameterState parameterState = parameter.addNewParameterState();
+//					
+//					Frequency f = Frequency.Factory.newInstance(xmlOpts);
+//					f.setValue(600.0);
+//					f.setUom(UomFrequency.GHZ);
+//					parameterState.setCurrentValue(f);
 					
 //					Organization responsibleOrganization = asset.addNewResponsibleOrganization();
 //					Person person = responsibleOrganization.addNewOrganizationContact();

@@ -49,10 +49,24 @@ public class AssetDocBuilderTest {
 		AssetDocBuilder docBuilder = AssetDocBuilder.Factory.newInstance(XML_OPTS);
 		
 		// Set specific document parameters here
-		docBuilder.setFacaNumber("FA-10065");
-		docBuilder.setFsepFac(FsepFac.EnRouteAutomationDisplaySystem);
-		docBuilder.setFsepFic(FsepFic.TBFM_61UB);
-		docBuilder.setFsepLocId("DFWA");
+		docBuilder.setFacaNumber("ZOA");//FA-10065");
+		docBuilder.setFsepFac(FsepFac.CPDS);
+		//docBuilder.setFsepFic(FsepFic.TBFM_61UB);
+		//docBuilder.setFsepLocId("DFWA");
+		
+		
+		docBuilder.setPostalAddress("OAKLAND", "CA");
+		docBuilder.addAdditionalInformation("SWIM_CODE_CATEGORY_DESC", "COORDINATION");
+		docBuilder.addAdditionalInformation("SWIM_CREATED_BY", "manjeet.dubria@faa.gov");
+		docBuilder.addAdditionalInformation("SWIM_DISTRICT_OFFICE_NAME", "OAKLAND DISTRICT OFFICE");
+		docBuilder.addAdditionalInformation("SWIM_GROUP_NAME", "OAKLAND ARTCC GROUP");
+		docBuilder.addAdditionalInformation("SWIM_MAINT_ACTION_CODE_DESC", "Blank/Not Applicable");
+		docBuilder.addAdditionalInformation("SWIM_MODIFIED_BY", "blah.blah@faa.gov");
+		docBuilder.addAdditionalInformation("SWIM_SERVICE_AREA_NAME", "WSA TECHNICAL OPERATIONS");
+		docBuilder.addAdditionalInformation("SWIM_SSC_CODE", "WWU12");
+		docBuilder.addAdditionalInformation("SWIM_SSC_NAME", "OAKLAND ARTCC ENV SSC");
+		docBuilder.addAdditionalInformation("SWIM_SUPPLEMENTAL_CODE_DESC", "RTS Coordination");
+		
 		
 		AssetDocument doc = docBuilder.build();
 		logger.info(String.format("%nassetDoc:%n%s%n", doc.xmlText(XML_OPTS)));

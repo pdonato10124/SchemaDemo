@@ -14,9 +14,9 @@
 	</parent>
 	
 	<groupId>gov.faa.nnew.sa.schemademo</groupId>
-	<artifactId>bindings-mmixm</artifactId>
+	<artifactId>schemademo-core</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-	<name>SchemaDemo :: Bindings MMIXM</name>
+	<name>SchemaDemo :: CORE</name>
 	<url>http://www.faa.gov</url>
 	<packaging>jar</packaging>
 	
@@ -24,13 +24,13 @@
 	<dependencies>
 
 		<dependency>
-			<groupId>org.apache.xmlbeans</groupId>
-			<artifactId>xmlbeans</artifactId>
-			<version>${xmlbeans.version}</version>
-			<scope>compile</scope>
+			<groupId>gov.faa.nnew.sa.schemademo</groupId>
+			<artifactId>bindings-mmixm</artifactId>
+			<version>${schemademo-bindings-mmixm.version}</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api 
+		
+		<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
@@ -52,25 +52,16 @@
 		
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-api</artifactId>
-			<version>${log4j.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-			<version>${log4j.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-slf4j-impl</artifactId>
 			<version>${log4j.version}</version>
 		</dependency>
-		-->
-		
+
 		
 	</dependencies>
 	
 	<build>
+	
+	
 	
 		<resources>
 			<resource>
@@ -81,78 +72,10 @@
 				</includes>
 			</resource>
 		</resources>
+
+	
 	
 		<plugins>
-		
-			<plugin>
-				<groupId>org.apache.xmlbeans</groupId>
-				<artifactId>xmlbeans</artifactId>
-				<version>${xmlbeans.plugin.version}</version>
-				<executions><execution><goals><goal>compile</goal></goals></execution></executions>
-				<configuration>
-					<repackage>gov.faa.nnew.sa.schemademo</repackage>
-					<name>bindings</name>
-					<partialMethods>ALL,-GET_LIST,-XGET_LIST,-XGET_ARRAY</partialMethods>
-
-					<!-- 
-					<verbose>true</verbose>
-					<debug>true</debug>
-					<quite>false</quite>
-					<quiet>false</quiet>
-					-->
-					
-					<sourceDir>${project.basedir}/src/main/schema/</sourceDir>
-					<sourceSchemas>*.xsd</sourceSchemas>
-					<catalogLocation>${project.basedir}/src/main/schema/catalog.xml</catalogLocation>
-					<xmlConfigs>${project.basedir}/src/main/schema/xmlconfig.xml</xmlConfigs>
-					<!--
-					-->
-
-
-					<!--
-					mdefNamespaces
-						If this option is set, then the schema compiler will permit and
-						ignore multiple definitions of the same component (element, attribute,
-						type, etc) names in the given namespaces. If multiple definitions
-						with the same name appear, the definitions that happen to be processed
-						last will be ignored. 
-						<mdefNamespace>http://www.opengis.net/gml/3.2</mdefNamespace>
-					<mdefNamespaces>
-						<mdefNamespace>https://mmixm.aero/4</mdefNamespace>
-					</mdefNamespaces>
-					-->
-					
-					
-					<!--
-					<mdefNamespaces>
-						http://www.opengis.net/gml/3.2,
-						http://www.isotc211.org/2005/gmd,
-						http://www.isotc211.org/2005/gco,
-						http://www.isotc211.org/2005/gts,
-						http://www.isotc211.org/2005/gsr,
-						http://www.isotc211.org/2005/gss,
-						http://nws.weather.gov/schemas/IWXXM-US/1.0/Release,
-						http://nws.weather.gov/iwxxm-us/2.0,
-						http://www.weather.gov/iwxxm-us/3.0,
-						http://icao.int/iwxxm/1.1,
-						http://icao.int/iwxxm/2.1,
-						http://icao.int/iwxxm/3.0,
-						http://www.aixm.aero/schema/5.1,
-						http://www.wxxm.aero/wxxm/2.0,
-						http://def.wmo.int/opm/2013,
-						http://def.wmo.int/metce/2013
-					</mdefNamespaces>
-					 -->
-				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>org.apache.logging.log4j</groupId>
-						<artifactId>log4j-core</artifactId>
-						<version>${log4j.version}</version>
-					</dependency>
-				</dependencies>
-			</plugin>
-
 		
 		
 		
@@ -261,7 +184,9 @@
 			-->
 			
 			
-			<!-- Add generated classes as sources  -->
+			
+			
+			<!-- Add generated classes as sources  
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
@@ -279,8 +204,9 @@
 					</execution>
 				</executions>
 			</plugin>
+			-->
 			
-			<!-- Attach the sources plugin to the install phase of the build. -->
+			<!-- Attach the sources plugin to the install phase of the build. 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
@@ -295,6 +221,12 @@
 					</execution>
 				</executions>
 			</plugin>
+			-->
+			
+			
+			
+			
+			
 			
 			
 		</plugins>

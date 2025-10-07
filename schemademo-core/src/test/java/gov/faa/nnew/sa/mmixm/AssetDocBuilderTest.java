@@ -14,7 +14,7 @@ import gov.faa.nnew.UnitTestUtil;
 import gov.faa.nnew.sa.XmlUtil;
 import gov.faa.nnew.sa.XmlbeansUtil;
 import gov.faa.nnew.sa.mmixm.AssetDocBuilder.FsepFac;
-import gov.faa.nnew.sa.mmixm.AssetDocBuilder.FsepFic;
+//import gov.faa.nnew.sa.mmixm.AssetDocBuilder.FsepFic;
 
 /**
  * <pre>
@@ -44,7 +44,7 @@ public class AssetDocBuilderTest {
 	@Test
 	@DisplayName("Asset Doc Builder")
 	public void testAssetDocBuilder(TestInfo testInfo) {
-		logger.info(String.format(String.format("%n+------+%n| TEST | %s%n+------+%n", testInfo.getDisplayName())));
+		logger.info(String.format("%n+------+%n| TEST | %s%n+------+%n", testInfo.getDisplayName()));
 		
 		AssetDocBuilder docBuilder = AssetDocBuilder.Factory.newInstance(XML_OPTS);
 		

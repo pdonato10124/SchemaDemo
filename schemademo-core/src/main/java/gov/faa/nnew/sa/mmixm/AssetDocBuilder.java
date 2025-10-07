@@ -1,8 +1,10 @@
 package gov.faa.nnew.sa.mmixm;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -55,7 +57,8 @@ public interface AssetDocBuilder {
 	public AssetDocBuilder setAssetName(String assetName);
 	public AssetDocBuilder addAdditionalInformation(String name, String value);
 	public AssetDocBuilder setFaaLocation(FaaLocationType faaLocationType, String faaLocationValue);
-	
+	public AssetDocBuilder setFaaOtherLocation(List<String> otherList, String faaLocationValue);
+
 	/**
 	 * The FA/CA number (Federal Aviation/Civil Aviation Number) is an alphanumeric reference designator that 
 	 * individually differentiates each Equipment type from others with the same short name.   An example of 
@@ -202,6 +205,7 @@ public interface AssetDocBuilder {
 				private String fsepLocId = "";
 
 				private FaaLocationType faaLocationType = FaaLocationType.NONE;
+				private List<String> otherLocationList = new ArrayList<String>();
 				private String faaLocationValue = "";
 				
 				private Map<String,String> addInfoMap = new HashMap<>();
@@ -229,6 +233,14 @@ public interface AssetDocBuilder {
 					return this;
 				}
 				
+				@Override
+				public AssetDocBuilder setFaaOtherLocation(List<String> otherList, String faaLocationValue) {
+					otherLocationList.clear();
+					otherLocationList.addAll(otherList);
+					this.faaLocationValue = faaLocationValue;
+					return this;
+				}
+
 				@Override
 				public AssetDocBuilder setFacaNumber(String facaNumber) {
 					this.facaNumber = facaNumber;
@@ -296,8 +308,15 @@ public interface AssetDocBuilder {
 							nameValue.setValue(entry.getValue());
 						}
 					}
-					
-					if(faaLocationType != FaaLocationType.NONE) {
+
+					if(!otherLocationList.isEmpty()) {
+						Location location = asset.addNewLocation();
+						FaaLocation faaLocation = location.addNewFaaLocation();
+						FaaLocationTypeChoice type = faaLocation.addNewType();
+						type.setLocationOtherType(otherLocationList);
+						faaLocation.setIdentifier(faaLocationValue);
+					}
+					else if(faaLocationType != FaaLocationType.NONE) {
 						Location location = asset.addNewLocation();
 						FaaLocation faaLocation = location.addNewFaaLocation();
 						FaaLocationTypeChoice type = faaLocation.addNewType();

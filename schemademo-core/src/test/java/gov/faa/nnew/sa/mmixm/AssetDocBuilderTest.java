@@ -1,5 +1,8 @@
 package gov.faa.nnew.sa.mmixm;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Level;
 
 import org.apache.xmlbeans.XmlOptions;
@@ -55,7 +58,11 @@ public class AssetDocBuilderTest {
 		//docBuilder.setFsepLocId("DFWA");
 		
 		
-		docBuilder.setPostalAddress("OAKLAND", "CA");
+		docBuilder.setFaaOtherLocation(Arrays.asList(new String[] {"BLDG","A","B"}), "DC");
+
+		//docBuilder.setFaaLocation(FaaLocationType.AIRPORT, "KPHL");
+		//docBuilder.setPostalAddress("OAKLAND", "CA");
+
 		docBuilder.addAdditionalInformation("SWIM_CODE_CATEGORY_DESC", "COORDINATION");
 		docBuilder.addAdditionalInformation("SWIM_CREATED_BY", "manjeet.dubria@faa.gov");
 		docBuilder.addAdditionalInformation("SWIM_DISTRICT_OFFICE_NAME", "OAKLAND DISTRICT OFFICE");
@@ -66,8 +73,7 @@ public class AssetDocBuilderTest {
 		docBuilder.addAdditionalInformation("SWIM_SSC_CODE", "WWU12");
 		docBuilder.addAdditionalInformation("SWIM_SSC_NAME", "OAKLAND ARTCC ENV SSC");
 		docBuilder.addAdditionalInformation("SWIM_SUPPLEMENTAL_CODE_DESC", "RTS Coordination");
-		
-		
+
 		AssetDocument doc = docBuilder.build();
 		logger.info(String.format("%nassetDoc:%n%s%n", doc.xmlText(XML_OPTS)));
 		UnitTestUtil.assertValidDocument("Document Failed Validation!", doc);

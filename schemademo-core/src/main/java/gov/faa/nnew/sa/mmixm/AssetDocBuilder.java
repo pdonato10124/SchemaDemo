@@ -57,7 +57,7 @@ public interface AssetDocBuilder {
 	public AssetDocBuilder setAssetName(String assetName);
 	public AssetDocBuilder addAdditionalInformation(String name, String value);
 	public AssetDocBuilder setFaaLocation(FaaLocationType faaLocationType, String faaLocationValue);
-	public AssetDocBuilder setFaaOtherLocation(List<String> otherList, String faaLocationValue);
+	public AssetDocBuilder setFaaOtherLocation(List<String> otherList, String faaOtherLocationValue);
 
 	/**
 	 * The FA/CA number (Federal Aviation/Civil Aviation Number) is an alphanumeric reference designator that 
@@ -207,6 +207,7 @@ public interface AssetDocBuilder {
 				private FaaLocationType faaLocationType = FaaLocationType.NONE;
 				private List<String> otherLocationList = new ArrayList<String>();
 				private String faaLocationValue = "";
+				private String faaOtherLocationValue = "";
 				
 				private Map<String,String> addInfoMap = new HashMap<>();
 				
@@ -234,10 +235,10 @@ public interface AssetDocBuilder {
 				}
 				
 				@Override
-				public AssetDocBuilder setFaaOtherLocation(List<String> otherList, String faaLocationValue) {
+				public AssetDocBuilder setFaaOtherLocation(List<String> otherList, String faaOtherLocationValue) {
 					otherLocationList.clear();
 					otherLocationList.addAll(otherList);
-					this.faaLocationValue = faaLocationValue;
+					this.faaOtherLocationValue = faaOtherLocationValue;
 					return this;
 				}
 
@@ -309,14 +310,7 @@ public interface AssetDocBuilder {
 						}
 					}
 
-					if(!otherLocationList.isEmpty()) {
-						Location location = asset.addNewLocation();
-						FaaLocation faaLocation = location.addNewFaaLocation();
-						FaaLocationTypeChoice type = faaLocation.addNewType();
-						type.setLocationOtherType(otherLocationList);
-						faaLocation.setIdentifier(faaLocationValue);
-					}
-					else if(faaLocationType != FaaLocationType.NONE) {
+					if(faaLocationType != FaaLocationType.NONE) {
 						Location location = asset.addNewLocation();
 						FaaLocation faaLocation = location.addNewFaaLocation();
 						FaaLocationTypeChoice type = faaLocation.addNewType();
@@ -329,6 +323,13 @@ public interface AssetDocBuilder {
 						PostalAddress postalAddress = physicalAddress.addNewAddress();
 						postalAddress.setCity(city);
 						postalAddress.setAdministrativeArea(state);
+					}
+					else if(!otherLocationList.isEmpty()) {
+						Location location = asset.addNewLocation();
+						FaaLocation faaLocation = location.addNewFaaLocation();
+						FaaLocationTypeChoice type = faaLocation.addNewType();
+						type.setLocationOtherType(otherLocationList);
+						faaLocation.setIdentifier(faaOtherLocationValue);
 					}
 					
 					

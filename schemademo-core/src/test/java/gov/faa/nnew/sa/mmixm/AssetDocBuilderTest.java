@@ -1,8 +1,6 @@
 package gov.faa.nnew.sa.mmixm;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.logging.Level;
 
 import org.apache.xmlbeans.XmlOptions;
@@ -16,6 +14,7 @@ import aero.mmixm.features.x4.AssetDocument;
 import gov.faa.nnew.UnitTestUtil;
 import gov.faa.nnew.sa.XmlUtil;
 import gov.faa.nnew.sa.XmlbeansUtil;
+import gov.faa.nnew.sa.mmixm.AssetDocBuilder.FaaLocationType;
 import gov.faa.nnew.sa.mmixm.AssetDocBuilder.FsepFac;
 //import gov.faa.nnew.sa.mmixm.AssetDocBuilder.FsepFic;
 
@@ -58,11 +57,11 @@ public class AssetDocBuilderTest {
 		//docBuilder.setFsepLocId("DFWA");
 		
 		
+		docBuilder.setFaaLocation(FaaLocationType.AIRPORT, "KPHL");
 		docBuilder.setFaaOtherLocation(Arrays.asList(new String[] {"BLDG","A","B"}), "DC");
-
-		//docBuilder.setFaaLocation(FaaLocationType.AIRPORT, "KPHL");
 		//docBuilder.setPostalAddress("OAKLAND", "CA");
 
+		
 		docBuilder.addAdditionalInformation("SWIM_CODE_CATEGORY_DESC", "COORDINATION");
 		docBuilder.addAdditionalInformation("SWIM_CREATED_BY", "manjeet.dubria@faa.gov");
 		docBuilder.addAdditionalInformation("SWIM_DISTRICT_OFFICE_NAME", "OAKLAND DISTRICT OFFICE");

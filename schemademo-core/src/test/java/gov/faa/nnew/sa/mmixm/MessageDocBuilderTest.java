@@ -1,7 +1,10 @@
 package gov.faa.nnew.sa.mmixm;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
+import java.util.UUID;
 import java.util.logging.Level;
 
 import javax.xml.xpath.XPathExpressionException;
@@ -19,6 +22,7 @@ import gov.faa.nnew.XPathEvaluator;
 import gov.faa.nnew.XPathEvaluator.NodeType;
 import gov.faa.nnew.sa.XmlUtil;
 import gov.faa.nnew.sa.XmlbeansUtil;
+import gov.faa.nnew.sa.mmixm.AssetDocBuilder.AssetDocType;
 import gov.faa.nnew.sa.mmixm.AssetDocBuilder.FaaLocationType;
 import gov.faa.nnew.sa.mmixm.AssetDocBuilder.FsepFac;
 import gov.faa.nnew.sa.mmixm.AssetDocBuilder.FsepFic;
@@ -58,9 +62,22 @@ public class MessageDocBuilderTest {
 
 		MessageDocBuilder docBuilder = MessageDocBuilder.Factory.newInstance(XML_OPTS);
 		
+		docBuilder.setMessageId(UUID.randomUUID().toString());
+		docBuilder.setMessageType("FSEP Message");
+
+		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("zulu"));
+		cal.set(2025, 8, 29);
+		cal.set(Calendar.HOUR_OF_DAY, 12);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		docBuilder.setMessageTimestamp(cal.getTime());
+
 		{
 			AssetDocBuilder assetDocBuilder = AssetDocBuilder.Factory.newInstance(XML_OPTS);
 			assetDocBuilder.setAssetName("FAA Asset");
+			assetDocBuilder.setAssetDocType(AssetDocType.SERVICE);
+
 			assetDocBuilder.addAdditionalInformation("A", "1");
 			assetDocBuilder.addAdditionalInformation("B", "2");
 			assetDocBuilder.addAdditionalInformation("C", "3");

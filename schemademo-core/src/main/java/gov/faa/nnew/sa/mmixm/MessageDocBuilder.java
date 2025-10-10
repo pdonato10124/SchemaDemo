@@ -1,6 +1,7 @@
 package gov.faa.nnew.sa.mmixm;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.TimeZone;
 
 import org.apache.xmlbeans.XmlObject;
@@ -32,8 +33,12 @@ import gov.faa.nnew.sa.XmlbeansUtil;
  */
 public interface MessageDocBuilder {
 
+	public MessageDocBuilder setMessageId(String messageId);
+	public MessageDocBuilder setMessageType(String messageType);
+	public MessageDocBuilder setMessageTimestamp(Date messageTimestamp);
+
 	public MessageDocBuilder setAsset(XmlObject asset);
-	
+
 	public MessageDocument build();
 	
 	/**
@@ -57,8 +62,29 @@ public interface MessageDocBuilder {
 			return new MessageDocBuilder() {
 				private XmlbeansUtil.XmlbeansOps XOPS = gov.faa.nnew.sa.XmlbeansUtil.XmlbeansOps.Factory.newInstance();
 
+				private String messageId = "";
+				private String messageType = "";
+				private Date messageTimestamp = new Date(0);
 				private XmlObject asset = null;
 				
+				@Override
+				public MessageDocBuilder setMessageId(String messageId) {
+					this.messageId = messageId;
+					return this;
+				}
+
+				@Override
+				public MessageDocBuilder setMessageType(String messageType) {
+					this.messageType = messageType;
+					return this;
+				}
+
+				@Override
+				public MessageDocBuilder setMessageTimestamp(Date messageTimestamp) {
+					this.messageTimestamp = messageTimestamp;
+					return this;
+				}
+
 				@Override
 				public MessageDocBuilder setAsset(XmlObject asset) {
 					this.asset = asset;
@@ -69,18 +95,27 @@ public interface MessageDocBuilder {
 				public MessageDocument build() {
 					MessageDocument messageDoc = MessageDocument.Factory.newInstance(xmlOpts);
 					Message message = messageDoc.addNewMessage();
-					
+
+					if(!messageId.isBlank()) {
+						message.setId(messageId);
+					}
+
+					if(!messageType.isBlank()) {
+						message.setMessageType(messageType);
+					}
+
+					if(messageTimestamp.getTime() > 0) {
+						Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("zulu"));
+						cal.setTime(messageTimestamp);
+						message.setTimestamp(cal);
+					}
+
 					if(asset != null) {
 						XOPS.copyAndAppendNode(asset, message);
 					}
-					
+
 					// - - - - - - - - - - - - - - - - - - - -
-					// TODO 
-					message.setId("12345");
-					message.setMessageType("FSEP Message");
-					message.setTimestamp(Calendar.getInstance(TimeZone.getTimeZone("zulu"))); // parse date string 2025-08-18T18:07:27.249Z  or  now
-					
-					
+
 					return messageDoc;
 				}
 
@@ -91,8 +126,5 @@ public interface MessageDocBuilder {
 				
 			};
 		}
-		
 	}
-	
-	
 }

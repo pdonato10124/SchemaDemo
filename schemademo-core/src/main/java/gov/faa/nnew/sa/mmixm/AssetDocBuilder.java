@@ -12,6 +12,7 @@ import org.apache.xmlbeans.XmlObject;
 import org.apache.xmlbeans.XmlOptions;
 
 import aero.mmixm.base.x4.AdditionalInformation;
+import aero.mmixm.base.x4.AssetType;
 import aero.mmixm.base.x4.CodeDescriptionType;
 import aero.mmixm.base.x4.CodeFaaLocationType;
 import aero.mmixm.base.x4.CodeFaaLocationType.Enum;
@@ -35,7 +36,6 @@ import gov.faa.nnew.sa.XmlbeansUtil;
 /**
  * Builder for creating AssetDocument document.
  * 
- * 
  * <pre>
  *  ____     ____    ______     
  * /\  _`\  /\  _`\ /\__  _\    
@@ -53,7 +53,7 @@ import gov.faa.nnew.sa.XmlbeansUtil;
  * @author Peter V Donato
  */
 public interface AssetDocBuilder {
-
+	public AssetDocBuilder setAssetDocType(AssetDocType assetDocType);
 	public AssetDocBuilder setAssetName(String assetName);
 	public AssetDocBuilder addAdditionalInformation(String name, String value);
 	public AssetDocBuilder setFaaLocation(FaaLocationType faaLocationType, String faaLocationValue);
@@ -118,7 +118,30 @@ public interface AssetDocBuilder {
 	
 	public AssetDocument build();
 	
-	
+	public enum AssetDocType {
+		ASSEMBLY(AssetType.ASSEMBLY),
+		COMPONENT(AssetType.COMPONENT),
+		EQUIPMENT(AssetType.EQUIPMENT),
+		FACILITY(AssetType.FACILITY),
+		LRU(AssetType.LRU),
+		LRU_2(AssetType.LRU_2),
+		MODULE(AssetType.MODULE),
+		OTHER(AssetType.OTHER),
+		PART(AssetType.PART),
+		SERVICE(AssetType.SERVICE),
+		SUBASSEMBLY(AssetType.SUBASSEMBLY),
+		SUBSYSTEM(AssetType.SUBSYSTEM),
+		SYSTEM(AssetType.SYSTEM),
+		;
+		private AssetType.Enum assetType;
+		private AssetDocType(AssetType.Enum assetType) {
+			this.assetType = assetType;
+		}
+		public AssetType.Enum getAssetType() {
+			return this.assetType;
+		}
+	}
+
 	public enum FaaLocationType {
 		NONE(Enum.forString("None")),
 		AIRPORT(CodeFaaLocationType.AIRPORT),
@@ -198,6 +221,8 @@ public interface AssetDocBuilder {
 			return new AssetDocBuilder() {
 				private XmlbeansUtil.XmlbeansOps XOPS = gov.faa.nnew.sa.XmlbeansUtil.XmlbeansOps.Factory.newInstance();
 
+				private AssetDocType assetDocType = AssetDocType.OTHER;
+				private boolean assetDocTypeSet = false;
 				private String assetName = "";
 				private String facaNumber = "";
 				private FsepFac fsepFac = FsepFac.None;
@@ -208,19 +233,25 @@ public interface AssetDocBuilder {
 				private List<String> otherLocationList = new ArrayList<String>();
 				private String faaLocationValue = "";
 				private String faaOtherLocationValue = "";
-				
+
 				private Map<String,String> addInfoMap = new HashMap<>();
 				
 				private String city = "";
 				private String state = "";
-				
-				
+
 				@Override
 				public AssetDocBuilder setAssetName(String assetName) {
 					this.assetName = assetName;
 					return this;
 				}
-				
+
+				@Override
+				public AssetDocBuilder setAssetDocType(AssetDocType assetDocType) {
+					this.assetDocType = assetDocType;
+					this.assetDocTypeSet = true;
+					return this;
+				}
+
 				@Override
 				public AssetDocBuilder addAdditionalInformation(String name, String value) {
 					addInfoMap.put(name, value);
@@ -273,12 +304,14 @@ public interface AssetDocBuilder {
 					return this;
 				}
 
-				
-				
 				@Override
 				public AssetDocument build() {
 					AssetDocument assetDoc = AssetDocument.Factory.newInstance(xmlOpts);
 					Asset asset = assetDoc.addNewAsset();
+
+					if(assetDocTypeSet) {
+						asset.setAssetType(assetDocType.getAssetType());
+					}
 
 					if(!assetName.isBlank()) {
 						asset.setAssetName(assetName);
@@ -354,8 +387,6 @@ public interface AssetDocBuilder {
 //					inventoryInformation.setAssetInventoryStatus(CodeManufacturedAssetStatusType.ACTIVE);
 //					inventoryInformation.setCondition(CodeConditionType.SURVEY);
 //					
-//					
-					
 					Calendar now = Calendar.getInstance(TimeZone.getTimeZone("zulu"));
 					
 					LoggingEvent loggingEvent = asset.addNewLoggingEvent();
@@ -375,10 +406,6 @@ public interface AssetDocBuilder {
 					//CodeDescriptionType category = loggingCode.addNewCategory();
 					//category.setCode("LC0");
 
-					
-					
-					
-					
 //					MonitoringEvent monitoringEvent = asset.addNewMonitoringEvent();
 //					Configuration configuration = monitoringEvent.addNewConfiguration();
 //					configuration.setMonitored(MonitoringType.MONITORED);

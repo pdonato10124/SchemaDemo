@@ -14,6 +14,7 @@ import aero.mmixm.features.x4.AssetDocument;
 import gov.faa.nnew.UnitTestUtil;
 import gov.faa.nnew.sa.XmlUtil;
 import gov.faa.nnew.sa.XmlbeansUtil;
+import gov.faa.nnew.sa.mmixm.AssetDocBuilder.AssetDocType;
 import gov.faa.nnew.sa.mmixm.AssetDocBuilder.FaaLocationType;
 import gov.faa.nnew.sa.mmixm.AssetDocBuilder.FsepFac;
 //import gov.faa.nnew.sa.mmixm.AssetDocBuilder.FsepFic;
@@ -49,13 +50,15 @@ public class AssetDocBuilderTest {
 		logger.info(String.format("%n+------+%n| TEST | %s%n+------+%n", testInfo.getDisplayName()));
 		
 		AssetDocBuilder docBuilder = AssetDocBuilder.Factory.newInstance(XML_OPTS);
-		
+
+		docBuilder.setAssetDocType(AssetDocType.SUBASSEMBLY);
+
 		// Set specific document parameters here
 		docBuilder.setFacaNumber("ZOA");//FA-10065");
 		docBuilder.setFsepFac(FsepFac.CPDS);
+		
 		//docBuilder.setFsepFic(FsepFic.TBFM_61UB);
 		//docBuilder.setFsepLocId("DFWA");
-		
 		
 		docBuilder.setFaaLocation(FaaLocationType.AIRPORT, "KPHL");
 		docBuilder.setFaaOtherLocation(Arrays.asList(new String[] {"BLDG","A","B"}), "DC");

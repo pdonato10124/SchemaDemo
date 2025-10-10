@@ -67,7 +67,6 @@ public interface MessageDocBuilder {
 				
 				@Override
 				public MessageDocument build() {
-					
 					MessageDocument messageDoc = MessageDocument.Factory.newInstance(xmlOpts);
 					Message message = messageDoc.addNewMessage();
 					
@@ -77,10 +76,9 @@ public interface MessageDocBuilder {
 					
 					// - - - - - - - - - - - - - - - - - - - -
 					// TODO 
-					message.setMessageType("message_type");
+					message.setId("12345");
+					message.setMessageType("FSEP Message");
 					message.setTimestamp(Calendar.getInstance(TimeZone.getTimeZone("zulu"))); // parse date string 2025-08-18T18:07:27.249Z  or  now
-
-					
 					
 					
 					return messageDoc;
